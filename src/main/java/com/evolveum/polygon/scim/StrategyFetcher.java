@@ -27,14 +27,17 @@ public class StrategyFetcher {
 
 	private static final String SALESFORCE = "salesforce";
 	private static final String SLACK = "slack";
+        private static final String WORKPLACE = "facebook";
 
 	public HandlingStrategy fetchStrategy(String providerName) {
 
 		HandlingStrategy strategy;
 		String[] uriParts = providerName.split("\\."); // e.g.
 		// https://eu6.salesforce.com/services/scim/v1
-
-		if (providerName.contains(".")) {
+                
+                if(providerName.contains(WORKPLACE)){
+                strategy = new WorkplaceHandlingStrategy();
+                } else if (providerName.contains(".")) {
 
 			if (uriParts.length >= 2) {
 
