@@ -76,7 +76,7 @@ public class GenericDataBuilder implements ObjectTranslator {
 	 * @param injectedAttributes
 	 *            A set of attributes which are injected into the provided set.
 	 * @return The complete json representation of the provided data set.
-	 */
+	 */        
 	public JSONObject translateSetToJson(Set<Attribute> imsAttributes, Set<Attribute> injectedAttributes,
 			String resourceEndPoint) {
 
@@ -116,7 +116,7 @@ public class GenericDataBuilder implements ObjectTranslator {
 
 		for (Attribute attribute : imsAttributes) {
 
-			// LOGGER.info("Update or create set attribute: {0}", attribute);
+			LOGGER.info("Update or create set attribute: {0}", attribute);
 
 			String attributeName = attribute.getName();
 
@@ -160,8 +160,12 @@ public class GenericDataBuilder implements ObjectTranslator {
 
 					attributeName = attributeName.replace(FORBIDENSEPPARATOR, SEPPARATOR);
 				}
-
-				completeJsonObj.put(attributeName, AttributeUtil.getSingleValue(attribute));
+                                //LOGGER.info("completeJsonObj put  AttributeUtil value= {0}",AttributeUtil.getSingleValue(attribute));
+				if(AttributeUtil.getSingleValue(attribute)==null){
+                                completeJsonObj.put(attributeName, JSONObject.NULL);
+                                } else {
+                                completeJsonObj.put(attributeName, AttributeUtil.getSingleValue(attribute));
+                                }
 			}
 
 		}
@@ -177,9 +181,9 @@ public class GenericDataBuilder implements ObjectTranslator {
 		if (extensionAttribute != null) {
 			buildExtensionAttribute(extensionAttribute, completeJsonObj);
 		}
-		// LOGGER.info("Json object returned from json data builder: {0}",
-		// completeJsonObj);
-
+		 LOGGER.info("Json object returned from json data builder: {0}",
+		completeJsonObj);
+                
 		return completeJsonObj;
 
 	}
@@ -251,7 +255,11 @@ public class GenericDataBuilder implements ObjectTranslator {
 
 									for (Object attributeValue : valueList) {
 										multivalueObject = new JSONObject();
+                                                                                if(attributeValue==null){
+                                                                                multivalueObject.put(finalSubAttributeNameParts[2], JSONObject.NULL);
+                                                                                } else{
 										multivalueObject.put(finalSubAttributeNameParts[2], attributeValue);
+                                                                                }
 
 										if (!DEFAULT.equals(nameFromSubSetParts[1])) {
 											multivalueObject.put(TYPE, nameFromSubSetParts[1]);
@@ -268,8 +276,12 @@ public class GenericDataBuilder implements ObjectTranslator {
 								} else {
 
 									if (!BLANK.equals(finalSubAttributeNameParts[2])) {
+                                                                            if(AttributeUtil.getSingleValue(subSetAttribute)==null){
+                                                                            multivalueObject.put(finalSubAttributeNameParts[2],JSONObject.NULL);
+                                                                            } else{
 										multivalueObject.put(finalSubAttributeNameParts[2],
 												AttributeUtil.getSingleValue(subSetAttribute));
+                                                                            }                                                                                
 									} else {
 
 										jArray.put(AttributeUtil.getSingleValue(subSetAttribute));
@@ -342,7 +354,11 @@ public class GenericDataBuilder implements ObjectTranslator {
 					// name.givenName
 					if (secondLoopAttributeNameParts[0].equals(mainAttributeName)
 							&& !mainAttributeName.equals(SCHEMA)) {
+                                            if(AttributeUtil.getSingleValue(j)==null){
+                                            	jObject.put(secondLoopAttributeNameParts[1], JSONObject.NULL);
+                                            } else {
 						jObject.put(secondLoopAttributeNameParts[1], AttributeUtil.getSingleValue(j));
+                                            }
 					} else if (secondLoopAttributeNameParts[0].equals(mainAttributeName)
 							&& mainAttributeName.equals(SCHEMA)) {
 						specialMlAttributes.add(j);
@@ -350,7 +366,11 @@ public class GenericDataBuilder implements ObjectTranslator {
 					}
 				}
 				if (specialMlAttributes.isEmpty()) {
+                                        if(jObject==null){
+                                        json.put(attributeNameParts[0], JSONObject.NULL);
+                                        } else{
 					json.put(attributeNameParts[0], jObject);
+                                        }
 				}
 				//
 				else {
@@ -365,13 +385,19 @@ public class GenericDataBuilder implements ObjectTranslator {
 							sMlAttributeName = AttributeUtil.getAsStringValue(specialAttribute);
 							nameWasSet = true;
 						} else if (!innerKeyParts[1].equals(TYPE)) {
-
+                                                    if(AttributeUtil.getSingleValue(specialAttribute)==null){
+                                                        jObject.put(innerKeyParts[1], JSONObject.NULL);
+                                                    } else {
 							jObject.put(innerKeyParts[1], AttributeUtil.getSingleValue(specialAttribute));
+                                                    }
 						}
 					}
 					if (nameWasSet) {
-
+                                            if(jObject==null){
+                                                json.put(sMlAttributeName, JSONObject.NULL);
+                                            } else {
 						json.put(sMlAttributeName, jObject);
+                                            }                                                
 						specialMlAttributes.removeAll(specialMlAttributes);
 
 					} else {
@@ -467,21 +493,27 @@ public class GenericDataBuilder implements ObjectTranslator {
 			}
 
 		}
-		if (!processedGoods.isEmpty()) {
-			for (String attributeName : processedGoods.keySet()) {
+            if (!processedGoods.isEmpty()) {
+                for (String attributeName : processedGoods.keySet()) {
 
-				JSONObject subAttributes = new JSONObject();
+                    JSONObject subAttributes = new JSONObject();
 
-				Map<String, Object> sAttribute = processedGoods.get(attributeName);
+                    Map<String, Object> sAttribute = processedGoods.get(attributeName);
 
-				for (String sAttributeName : sAttribute.keySet()) {
-					subAttributes.put(sAttributeName, sAttribute.get(sAttributeName));
-				}
-
-				json.put(attributeName, subAttributes);
-
-			}
-		}
+                    for (String sAttributeName : sAttribute.keySet()) {
+                        if (sAttribute.get(sAttributeName) == null) {
+                            subAttributes.put(sAttributeName, JSONObject.NULL);
+                        } else {
+                            subAttributes.put(sAttributeName, sAttribute.get(sAttributeName));
+                        }
+                    }
+                    if (subAttributes == null) {
+                        json.put(attributeName, JSONObject.NULL);
+                    } else {
+                        json.put(attributeName, subAttributes);
+                    }
+                }
+            }
 
 		return json;
 	}
