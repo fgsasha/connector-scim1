@@ -91,7 +91,12 @@ public class ScimConnector implements Connector, CreateOp, DeleteOp, SchemaOp, S
 				buildSchemas(schemaBuilder, schemaParser);
 			} else {
 
-				ObjectClassInfo userSchemaInfo = UserSchemaBuilder.getUserSchema();
+				ObjectClassInfo userSchemaInfo;
+                                if(StrategyFetcher.WORKPLACE.equalsIgnoreCase(providerName) && !providerName.isEmpty()){
+                                userSchemaInfo = UserSchemaBuilderWorkPlaceDefault.getUserSchema();
+                                } else {
+                                userSchemaInfo = UserSchemaBuilder.getUserSchema();
+                                }
 				ObjectClassInfo groupSchemaInfo = GroupDataBuilder.getGroupSchema();
 				schemaBuilder.defineObjectClass(userSchemaInfo);
 				schemaBuilder.defineObjectClass(groupSchemaInfo);
