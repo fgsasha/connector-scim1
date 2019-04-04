@@ -82,6 +82,7 @@ import org.json.JSONObject;
 
 import com.evolveum.polygon.scim.ErrorHandler;
 import com.evolveum.polygon.scim.common.HttpPatch;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -120,8 +121,6 @@ public class WorkplaceHandlingStrategy extends StandardScimHandlingStrategy impl
         private static final String  ACTIVE = "active";
         
 	
-	
-	private static final String EXTERNALID = "externalId";
 	private static final String READONLY = "readOnly";
 	private static final String SCHEMA = "schema";
 	private static final String REQUIRED = "required";
@@ -129,10 +128,30 @@ public class WorkplaceHandlingStrategy extends StandardScimHandlingStrategy impl
 	private static final String STRING = "string";
         private static final String ENTERPRISE="extensionenterprise";
         private static final String ENTERPRISEVALUE="urn:scim:schemas:extension:enterprise:1.0";
-        private static final String STARTTERMDATES="extensionstarttermdates";
-        private static final String STARTTERMDATESVALUE="urn:scim:schemas:extension:facebook:starttermdates:1.0";
+        static final String STARTTERMDATES="extensionstarttermdates";
+        static final String STARTTERMDATESVALUE="urn:scim:schemas:extension:facebook:starttermdates:1.0";
         private static final String MANAGER="manager";
         private static final String MANAGERID="managerId";
+        private static final String NULLSPECIAL="NULL";
+        private static final String NULL="null";
+        
+        private static final String ADDRESSESATTRIBUTESFORMATTED="addresses.attributes.formatted";
+        private static final String ADDRESSESATTRIBUTESPRIMARY="addresses.attributes.primary";
+        private static final String EXTENSIONSTARTTERMDATESSTARTDATE="extensionstarttermdates.startDate";
+        private static final String EXTENSIONSTARTTERMDATESENDDATE="extensionstarttermdates.endDate";
+        private static final String EXTENSIONENTERPRISEDIVISION="extensionenterprise.division";
+        private static final String EXTENSIONENTERPRISEMANAGER="extensionenterprise.manager";
+        private static final String EXTENSIONENTERPRISEORGANIZATION="extensionenterprise.organization";
+        private static final String EXTENSIONENTERPRISEDEPARTMENT="extensionenterprise.department";
+        private static final String EXTENSIONENTERPRISECOSTCENTER="extensionenterprise.costCenter";        
+        private static final String EXTENSIONENTERPRISEEMPLOYEENUMBER="extensionenterprise.employeeNumber";
+        private static final String EXTERNALID="externalId";
+        
+        
+        
+        
+        
+        
 
 
 	@Override
@@ -595,10 +614,9 @@ public class WorkplaceHandlingStrategy extends StandardScimHandlingStrategy impl
                 
 		String responseString = null;
 		try {                    
-			LOGGER.info("Query url: {0}", uri);                        
-                        LOGGER.info("Input attribute set: {0}",attributes);
-                        LOGGER.info("Class of set member: {0}",attributes.iterator().next().getClass());
-                        
+			
+                        LOGGER.info("Input attribute set: {0}",attributes);                        
+                        //attributes=nullAttributeHandler(attributes);
                         JSONObject jsonObject = objectTranslator.translateSetToJson(attributes, null, resourceEndPoint);                        
                         //TODO check and add missing attributes to attributeSet from resource
                         JSONObject jsonUserOnResource = getCurrentUserData(uri, authHeader, httpClient);
@@ -615,8 +633,6 @@ public class WorkplaceHandlingStrategy extends StandardScimHandlingStrategy impl
                         HttpPut httpPut = buildHttpPut(uri, authHeader, jsonObject);
                             
 			try (CloseableHttpResponse response = (CloseableHttpResponse) httpClient.execute(httpPut)) {
-                        
-                        LOGGER.info("CloseableHttpResponse: {0}", response);
                         
 				int statusCode = response.getStatusLine().getStatusCode();
 
@@ -967,6 +983,17 @@ public class WorkplaceHandlingStrategy extends StandardScimHandlingStrategy impl
                         missingAttributes.put(NAMEFORMATED, NAMEFORMATED);			
 			missingAttributes.put(ACTIVE, ACTIVE);
                         missingAttributes.put(SCHEMAS, SCHEMAS);
+                        missingAttributes.put(ADDRESSESATTRIBUTESFORMATTED, ADDRESSESATTRIBUTESFORMATTED);
+                        missingAttributes.put(ADDRESSESATTRIBUTESPRIMARY, ADDRESSESATTRIBUTESPRIMARY);
+                        missingAttributes.put(EXTENSIONSTARTTERMDATESSTARTDATE, EXTENSIONSTARTTERMDATESSTARTDATE);
+                        missingAttributes.put(EXTENSIONSTARTTERMDATESENDDATE, EXTENSIONSTARTTERMDATESENDDATE);
+                        missingAttributes.put(EXTENSIONENTERPRISEDIVISION, EXTENSIONENTERPRISEDIVISION);
+                        missingAttributes.put(EXTENSIONENTERPRISEMANAGER, EXTENSIONENTERPRISEMANAGER);
+                        missingAttributes.put(EXTENSIONENTERPRISEORGANIZATION, EXTENSIONENTERPRISEORGANIZATION);
+                        missingAttributes.put(EXTENSIONENTERPRISEDEPARTMENT, EXTENSIONENTERPRISEDEPARTMENT);
+                        missingAttributes.put(EXTENSIONENTERPRISECOSTCENTER, EXTENSIONENTERPRISECOSTCENTER);
+                        missingAttributes.put(EXTENSIONENTERPRISEEMPLOYEENUMBER, EXTENSIONENTERPRISEEMPLOYEENUMBER);
+                        missingAttributes.put(EXTERNALID, EXTERNALID);
 
 			if (jsonObject.has(ATTRIBUTES)) {
 
@@ -988,6 +1015,39 @@ public class WorkplaceHandlingStrategy extends StandardScimHandlingStrategy impl
 						} else if (SCHEMAS.equals(subAttributes.get(SCHEMAS))) {
 
 							missingAttributes.remove(SCHEMAS);
+						} else if (ADDRESSESATTRIBUTESFORMATTED.equals(subAttributes.get(ADDRESSESATTRIBUTESFORMATTED))) {
+
+							missingAttributes.remove(ADDRESSESATTRIBUTESFORMATTED);
+						} else if (ADDRESSESATTRIBUTESPRIMARY.equals(subAttributes.get(ADDRESSESATTRIBUTESPRIMARY))) {
+
+							missingAttributes.remove(ADDRESSESATTRIBUTESPRIMARY);
+						} else if (EXTENSIONSTARTTERMDATESSTARTDATE.equals(subAttributes.get(EXTENSIONSTARTTERMDATESSTARTDATE))) {
+
+							missingAttributes.remove(EXTENSIONSTARTTERMDATESSTARTDATE);
+						} else if (EXTENSIONSTARTTERMDATESENDDATE.equals(subAttributes.get(EXTENSIONSTARTTERMDATESENDDATE))) {
+
+							missingAttributes.remove(EXTENSIONSTARTTERMDATESENDDATE);
+						} else if (EXTENSIONENTERPRISEDIVISION.equals(subAttributes.get(EXTENSIONENTERPRISEDIVISION))) {
+
+							missingAttributes.remove(EXTENSIONENTERPRISEDIVISION);
+						} else if (EXTENSIONENTERPRISEMANAGER.equals(subAttributes.get(EXTENSIONENTERPRISEMANAGER))) {
+
+							missingAttributes.remove(EXTENSIONENTERPRISEMANAGER);
+						} else if (EXTENSIONENTERPRISEORGANIZATION.equals(subAttributes.get(EXTENSIONENTERPRISEORGANIZATION))) {
+
+							missingAttributes.remove(EXTENSIONENTERPRISEORGANIZATION);
+						} else if (EXTENSIONENTERPRISEDEPARTMENT.equals(subAttributes.get(EXTENSIONENTERPRISEDEPARTMENT))) {
+
+							missingAttributes.remove(EXTENSIONENTERPRISEDEPARTMENT);
+						} else if (EXTENSIONENTERPRISECOSTCENTER.equals(subAttributes.get(EXTENSIONENTERPRISECOSTCENTER))) {
+
+							missingAttributes.remove(EXTENSIONENTERPRISECOSTCENTER);
+						} else if (EXTENSIONENTERPRISEEMPLOYEENUMBER.equals(subAttributes.get(EXTENSIONENTERPRISEEMPLOYEENUMBER))) {
+
+							missingAttributes.remove(EXTENSIONENTERPRISEEMPLOYEENUMBER);
+						} else if (EXTERNALID.equals(subAttributes.get(EXTERNALID))) {
+
+							missingAttributes.remove(EXTERNALID);
 						} 
 					}
 				
@@ -1003,7 +1063,7 @@ public class WorkplaceHandlingStrategy extends StandardScimHandlingStrategy impl
 						userName.put(NAME, USERNAME);
 						userName.put(READONLY, false);
 						userName.put(TYPE, STRING);
-						userName.put(REQUIRED, true);
+						userName.put(REQUIRED, false);
 						userName.put(CASEEXSACT, false);
 
 						attributesArray.put(userName);
@@ -1056,7 +1116,140 @@ public class WorkplaceHandlingStrategy extends StandardScimHandlingStrategy impl
 						schemas.put(SUBATTRIBUTES, subAttributeArray);
 
 						attributesArray.put(schemas);
-					}
+					} else if (ADDRESSESATTRIBUTESFORMATTED.equals(missingAttributeName)) {
+						JSONObject displayName = new JSONObject();
+
+						displayName.put(SCHEMA, SCHEMAVALUE);
+						displayName.put(NAME, ADDRESSESATTRIBUTESFORMATTED);
+						displayName.put(READONLY, false);
+						displayName.put(TYPE, STRING);
+						displayName.put(REQUIRED, false);
+						displayName.put(CASEEXSACT, true);
+
+						attributesArray.put(displayName);
+
+					} else if (ADDRESSESATTRIBUTESPRIMARY.equals(missingAttributeName)) {
+						JSONObject putValue = new JSONObject();
+
+						putValue.put(SCHEMA, SCHEMAVALUE);
+						putValue.put(NAME, ADDRESSESATTRIBUTESPRIMARY);
+						putValue.put(READONLY, false);
+						putValue.put(TYPE, "boolean");
+						putValue.put(REQUIRED, false);
+						putValue.put(CASEEXSACT, true);
+
+						attributesArray.put(putValue);
+
+					} else if (EXTENSIONSTARTTERMDATESSTARTDATE.equals(missingAttributeName)) {
+						JSONObject putValue = new JSONObject();
+
+						putValue.put(SCHEMA, SCHEMAVALUE);
+						putValue.put(NAME, EXTENSIONSTARTTERMDATESSTARTDATE);
+						putValue.put(READONLY, false);
+						putValue.put(TYPE, "long");
+						putValue.put(REQUIRED, false);
+						putValue.put(CASEEXSACT, false);
+
+						attributesArray.put(putValue);
+
+					} else if (EXTENSIONSTARTTERMDATESENDDATE.equals(missingAttributeName)) {
+						JSONObject putValue = new JSONObject();
+
+						putValue.put(SCHEMA, SCHEMAVALUE);
+						putValue.put(NAME, EXTENSIONSTARTTERMDATESENDDATE);
+						putValue.put(READONLY, false);
+						putValue.put(TYPE, "long");
+						putValue.put(REQUIRED, false);
+						putValue.put(CASEEXSACT, false);
+
+						attributesArray.put(putValue);
+
+					} else if (EXTENSIONENTERPRISEDIVISION.equals(missingAttributeName)) {
+						JSONObject putValue = new JSONObject();
+
+						putValue.put(SCHEMA, SCHEMAVALUE);
+						putValue.put(NAME, EXTENSIONENTERPRISEDIVISION);
+						putValue.put(READONLY, false);
+						putValue.put(TYPE, STRING);
+						putValue.put(REQUIRED, false);
+						putValue.put(CASEEXSACT, true);
+
+						attributesArray.put(putValue);
+
+					} else if (EXTENSIONENTERPRISEMANAGER.equals(missingAttributeName)) {
+						JSONObject putValue = new JSONObject();
+
+						putValue.put(SCHEMA, SCHEMAVALUE);
+						putValue.put(NAME, EXTENSIONENTERPRISEMANAGER);
+						putValue.put(READONLY, false);
+						putValue.put(TYPE, "long");
+						putValue.put(REQUIRED, false);
+						putValue.put(CASEEXSACT, false);
+
+						attributesArray.put(putValue);
+
+					} else if (EXTENSIONENTERPRISEORGANIZATION.equals(missingAttributeName)) {
+						JSONObject putValue = new JSONObject();
+
+						putValue.put(SCHEMA, SCHEMAVALUE);
+						putValue.put(NAME, EXTENSIONENTERPRISEORGANIZATION);
+						putValue.put(READONLY, false);
+						putValue.put(TYPE, STRING);
+						putValue.put(REQUIRED, false);
+						putValue.put(CASEEXSACT, true);
+
+						attributesArray.put(putValue);
+
+					} else if (EXTENSIONENTERPRISEDEPARTMENT.equals(missingAttributeName)) {
+						JSONObject putValue = new JSONObject();
+
+						putValue.put(SCHEMA, SCHEMAVALUE);
+						putValue.put(NAME, EXTENSIONENTERPRISEDEPARTMENT);
+						putValue.put(READONLY, false);
+						putValue.put(TYPE, STRING);
+						putValue.put(REQUIRED, false);
+						putValue.put(CASEEXSACT, true);
+
+						attributesArray.put(putValue);
+
+					} else if (EXTENSIONENTERPRISECOSTCENTER.equals(missingAttributeName)) {
+						JSONObject putValue = new JSONObject();
+
+						putValue.put(SCHEMA, SCHEMAVALUE);
+						putValue.put(NAME, EXTENSIONENTERPRISECOSTCENTER);
+						putValue.put(READONLY, false);
+						putValue.put(TYPE, STRING);
+						putValue.put(REQUIRED, false);
+						putValue.put(CASEEXSACT, true);
+
+						attributesArray.put(putValue);
+
+					} else if (EXTENSIONENTERPRISEEMPLOYEENUMBER.equals(missingAttributeName)) {
+						JSONObject putValue = new JSONObject();
+
+						putValue.put(SCHEMA, SCHEMAVALUE);
+						putValue.put(NAME, EXTENSIONENTERPRISEEMPLOYEENUMBER);
+						putValue.put(READONLY, false);
+						putValue.put(TYPE, STRING);
+						putValue.put(REQUIRED, false);
+						putValue.put(CASEEXSACT, false);
+
+						attributesArray.put(putValue);
+
+					} else if (EXTERNALID.equals(missingAttributeName)) {
+						JSONObject putValue = new JSONObject();
+
+						putValue.put(SCHEMA, SCHEMAVALUE);
+						putValue.put(NAME, EXTERNALID);
+						putValue.put(READONLY, false);
+						putValue.put(TYPE, STRING);
+						putValue.put(REQUIRED, true);
+						putValue.put(CASEEXSACT, false);
+
+						attributesArray.put(putValue);
+
+					} 
+                                       
 
 				}
 
@@ -1796,6 +1989,13 @@ public class WorkplaceHandlingStrategy extends StandardScimHandlingStrategy impl
 		return httpPut;
     }
 
+    /** Get current user attribute values
+     * 
+     * @param uri   GET URL
+     * @param authHeader Header enriched authentication data
+     * @param httpClient 
+     * @return JSON output of GET User methog
+     */
     private JSONObject getCurrentUserData(String uri, Header authHeader, HttpClient httpClient) {
         JSONObject jsonObject = null;
         LOGGER.info("getCurrentUserData url: {0}", uri);
@@ -1916,9 +2116,14 @@ public class WorkplaceHandlingStrategy extends StandardScimHandlingStrategy impl
             Object jsonVal = jsonObject.get(ENTERPRISE);
             JSONObject entrps = new JSONObject(jsonVal.toString());
             if (entrps.has(MANAGER)) {
-                Long managerIdVal = entrps.getLong(MANAGER);
-                Map<String, Long> map = new HashMap<String, Long>();
+                Map<String, Object> map = new HashMap<String, Object>();
+                Object managerIdVal=null;
+                if(entrps.isNull(MANAGER) || entrps.get(MANAGER).toString().isEmpty()){
+                map.put(MANAGERID, JSONObject.NULL);
+                } else{
+                managerIdVal = entrps.getLong(MANAGER);
                 map.put(MANAGERID, managerIdVal);
+                }
                 JSONObject managerValue = new JSONObject(map);
                 entrps.remove(MANAGER);
                 entrps.put(MANAGER, managerValue);
@@ -1951,6 +2156,11 @@ public class WorkplaceHandlingStrategy extends StandardScimHandlingStrategy impl
         return jsonObject;
     }
     
+    /** Call Normalize method for RESOURCES JSONArray object
+     * 
+     * @param jsonObject - input JSON object
+     * @return Normalized JSON object
+     */
     private JSONObject normalizeJSONFullRecon(JSONObject jsonObject){            
             if(jsonObject.has(RESOURCES) && jsonObject.has(STARTINDEX) && jsonObject.has(TOTALRESULTS) && jsonObject.has(ITEMSPERPAGE)){
                 JSONArray outpuResourcesArray = new JSONArray();
@@ -1965,4 +2175,33 @@ public class WorkplaceHandlingStrategy extends StandardScimHandlingStrategy impl
         }
                return jsonObject; 
     } 
+
+    private Set<Attribute> nullAttributeHandler(Set<Attribute> attributes) {
+        if (attributes == null || attributes.isEmpty()) {
+            return attributes;
+        } else {
+            Set<Attribute>  attributesOut = new HashSet<Attribute>();
+            Iterator<Attribute> it = attributes.iterator();
+            while (it.hasNext()) {
+                Attribute attr = it.next();
+                LOGGER.info("Attribute value before nullAttributeHandler= {0}", attr);
+                if (attr!=null && attr.getValue()!=null && attr.getValue().toString().equalsIgnoreCase(NULLSPECIAL)) {
+                    throw new ParseException("Attribute value cannot be equal" + NULLSPECIAL);
+                } else if (attr.getValue() == null) {
+                    String name = attr.getName();
+                    LOGGER.info("Attribute getName= {0}", name);
+                    Attribute add = new AttributeBuilder().build(name, NULLSPECIAL);
+//                    attributes.add(add);
+//                    attributes.add(AttributeBuilder.build(name, "Mr."));
+                    //attributes.remove(attr);
+                    attributesOut.add(add);
+                } else {
+                attributesOut.add(attr);
+                }
+
+            }
+            LOGGER.info("Attribute value after nullAttributeHandler {0}", attributesOut);
+            return attributesOut;
+        }
+    }
 }
