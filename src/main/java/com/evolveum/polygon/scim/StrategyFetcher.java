@@ -27,7 +27,7 @@ public class StrategyFetcher {
 
 	private static final String SALESFORCE = "salesforce";
 	private static final String SLACK = "slack";
-        private static final String WORKPLACE = "facebook";
+        static final String WORKPLACE = "facebook";
 
 	public HandlingStrategy fetchStrategy(String providerName) {
 
