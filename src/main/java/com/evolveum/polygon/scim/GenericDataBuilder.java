@@ -48,6 +48,7 @@ public class GenericDataBuilder implements ObjectTranslator {
 	private static final String FORBIDENSEPPARATOR = ":";
 	private static final Log LOGGER = Log.getLog(GenericDataBuilder.class);
 	private String operation;
+        private static final String PRIMARY="primary";
 
 	/**
 	 * Constructor used to populate the local variable "operation".
@@ -252,11 +253,11 @@ public class GenericDataBuilder implements ObjectTranslator {
 								if (subSetAttribute.getValue() != null && subSetAttribute.getValue().size() > 1) {
 									writeToArray = false;
 									List<Object> valueList = subSetAttribute.getValue();
-
+                                                                        LOGGER.info("buildLayeredAtrribute attribute: subSetAttribute = {0}",subSetAttribute);
 									for (Object attributeValue : valueList) {
 										multivalueObject = new JSONObject();
                                                                                 if(attributeValue==null){
-                                                                                multivalueObject.put(finalSubAttributeNameParts[2], JSONObject.NULL);
+                                                                                multivalueObject.put(finalSubAttributeNameParts[2], "");
                                                                                 } else{
 										multivalueObject.put(finalSubAttributeNameParts[2], attributeValue);
                                                                                 }
@@ -266,7 +267,10 @@ public class GenericDataBuilder implements ObjectTranslator {
 										}
 										if (operation != null) {
 											if (DELETE.equals(operation)) {
-												multivalueObject.put(OPERATION, DELETE);
+											//multivalueObject.put(OPERATION, DELETE);
+                                                                                        multivalueObject.put(finalSubAttributeNameParts[2], "");
+                                                                                        //multivalueObject.put(TYPE, JSONObject.NULL);
+                                                                                        multivalueObject.put(PRIMARY, JSONObject.NULL);
 											}
 										}
 										jArray.put(multivalueObject);
@@ -277,7 +281,7 @@ public class GenericDataBuilder implements ObjectTranslator {
 
 									if (!BLANK.equals(finalSubAttributeNameParts[2])) {
                                                                             if(AttributeUtil.getSingleValue(subSetAttribute)==null){
-                                                                            multivalueObject.put(finalSubAttributeNameParts[2],JSONObject.NULL);
+                                                                            multivalueObject.put(finalSubAttributeNameParts[2], "");
                                                                             } else{
 										multivalueObject.put(finalSubAttributeNameParts[2],
 												AttributeUtil.getSingleValue(subSetAttribute));
@@ -293,7 +297,10 @@ public class GenericDataBuilder implements ObjectTranslator {
 									}
 									if (operation != null) {
 										if (DELETE.equals(operation)) {
-											multivalueObject.put(OPERATION, DELETE);
+										//multivalueObject.put(OPERATION, DELETE);
+                                                                                multivalueObject.put(finalSubAttributeNameParts[2], "");
+                                                                                //multivalueObject.put(TYPE, JSONObject.NULL);                                                                              
+                                                                                multivalueObject.put(PRIMARY, JSONObject.NULL);
 										}
 									}
 
@@ -355,7 +362,11 @@ public class GenericDataBuilder implements ObjectTranslator {
 					if (secondLoopAttributeNameParts[0].equals(mainAttributeName)
 							&& !mainAttributeName.equals(SCHEMA)) {
                                             if(AttributeUtil.getSingleValue(j)==null){
-                                            	jObject.put(secondLoopAttributeNameParts[1], JSONObject.NULL);
+                                                if(mainAttributeName.equalsIgnoreCase(WorkplaceHandlingStrategy.STARTTERMDATES) || mainAttributeName.equalsIgnoreCase(WorkplaceHandlingStrategy.STARTTERMDATESVALUE)){
+                                                jObject.put(secondLoopAttributeNameParts[1], 0);
+                                                } else {
+                                            	jObject.put(secondLoopAttributeNameParts[1], "");
+                                                }                                                
                                             } else {
 						jObject.put(secondLoopAttributeNameParts[1], AttributeUtil.getSingleValue(j));
                                             }
@@ -367,7 +378,7 @@ public class GenericDataBuilder implements ObjectTranslator {
 				}
 				if (specialMlAttributes.isEmpty()) {
                                         if(jObject==null){
-                                        json.put(attributeNameParts[0], JSONObject.NULL);
+                                        json.put(attributeNameParts[0], "");
                                         } else{
 					json.put(attributeNameParts[0], jObject);
                                         }
@@ -386,7 +397,7 @@ public class GenericDataBuilder implements ObjectTranslator {
 							nameWasSet = true;
 						} else if (!innerKeyParts[1].equals(TYPE)) {
                                                     if(AttributeUtil.getSingleValue(specialAttribute)==null){
-                                                        jObject.put(innerKeyParts[1], JSONObject.NULL);
+                                                        jObject.put(innerKeyParts[1], "");
                                                     } else {
 							jObject.put(innerKeyParts[1], AttributeUtil.getSingleValue(specialAttribute));
                                                     }
@@ -394,7 +405,7 @@ public class GenericDataBuilder implements ObjectTranslator {
 					}
 					if (nameWasSet) {
                                             if(jObject==null){
-                                                json.put(sMlAttributeName, JSONObject.NULL);
+                                                json.put(sMlAttributeName, "");
                                             } else {
 						json.put(sMlAttributeName, jObject);
                                             }                                                
