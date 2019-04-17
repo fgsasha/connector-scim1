@@ -29,9 +29,9 @@ import org.identityconnectors.framework.common.objects.OperationalAttributeInfos
  *         "User" scim core schema.
  */
 
-public class UserSchemaBuilder {
+public class UserSchemaBuilderWorkPlaceDefault {
 
-	private static final Log LOGGER = Log.getLog(UserSchemaBuilder.class);
+	private static final Log LOGGER = Log.getLog(UserSchemaBuilderWorkPlaceDefault.class);
 
 	/**
 	 * Builds the "ObjectClassInfo" object which carries the schema information
@@ -46,13 +46,17 @@ public class UserSchemaBuilder {
 
 		builder.addAttributeInfo(Name.INFO);
 
-		builder.addAttributeInfo(AttributeInfoBuilder.define("userName").setRequired(true).build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("userName").setRequired(false).build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("name.formatted").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("name.familyName").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("name.givenName").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("name.middleName").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("name.honorificPrefix").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("name.honorificSuffix").build());
+                builder.addAttributeInfo(AttributeInfoBuilder.define("profileUrl").build());
+                builder.addAttributeInfo(AttributeInfoBuilder.define("timezone").build());
+                builder.addAttributeInfo(AttributeInfoBuilder.define("x509Certificates").build());
+                builder.addAttributeInfo(AttributeInfoBuilder.define("externalId").build());
 
 		builder.addAttributeInfo(OperationalAttributeInfos.ENABLE);
 
@@ -71,8 +75,8 @@ public class UserSchemaBuilder {
 		builder.addAttributeInfo(AttributeInfoBuilder.define("emails.work.value").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("emails.work.primary").setType(Boolean.class).build());
 
-		builder.addAttributeInfo(AttributeInfoBuilder.define("emails.home.value").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("emails.home.primary").setType(Boolean.class).build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("emails.personal.value").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("emails.personal.primary").setType(Boolean.class).build());
 
 		builder.addAttributeInfo(AttributeInfoBuilder.define("emails.other.value").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("emails.other.primary").setType(Boolean.class).build());
@@ -81,25 +85,25 @@ public class UserSchemaBuilder {
 		builder.addAttributeInfo(
 				AttributeInfoBuilder.define("entitlements.default.primary").setType(Boolean.class).build());
 
-		builder.addAttributeInfo(AttributeInfoBuilder.define("phoneNumbers.work.value").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("phoneNumbers.work.value").setMultiValued(true).build());
 		builder.addAttributeInfo(
-				AttributeInfoBuilder.define("phoneNumbers.work.primary").setType(Boolean.class).build());
+				AttributeInfoBuilder.define("phoneNumbers.work.primary").setMultiValued(true).setType(Boolean.class).build());
 
-		builder.addAttributeInfo(AttributeInfoBuilder.define("phoneNumbers.other.value").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("phoneNumbers.other.value").setMultiValued(true).build());
 		builder.addAttributeInfo(
-				AttributeInfoBuilder.define("phoneNumbers.other.primary").setType(Boolean.class).build());
+				AttributeInfoBuilder.define("phoneNumbers.other.primary").setMultiValued(true).setType(Boolean.class).build());
 
-		builder.addAttributeInfo(AttributeInfoBuilder.define("phoneNumbers.pager.value").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("phoneNumbers.pager.value").setMultiValued(true).build());
 		builder.addAttributeInfo(
-				AttributeInfoBuilder.define("phoneNumbers.pager.primary").setType(Boolean.class).build());
+				AttributeInfoBuilder.define("phoneNumbers.pager.primary").setMultiValued(true).setType(Boolean.class).build());
 
-		builder.addAttributeInfo(AttributeInfoBuilder.define("phoneNumbers.fax.value").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("phoneNumbers.fax.value").setMultiValued(true).build());
 		builder.addAttributeInfo(
-				AttributeInfoBuilder.define("phoneNumbers.fax.primary").setType(Boolean.class).build());
+				AttributeInfoBuilder.define("phoneNumbers.fax.primary").setMultiValued(true).setType(Boolean.class).build());
 
-		builder.addAttributeInfo(AttributeInfoBuilder.define("phoneNumbers.mobile.value").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("phoneNumbers.mobile.value").setMultiValued(true).build());
 		builder.addAttributeInfo(
-				AttributeInfoBuilder.define("phoneNumbers.mobile.primary").setType(Boolean.class).build());
+				AttributeInfoBuilder.define("phoneNumbers.mobile.primary").setMultiValued(true).setType(Boolean.class).build());
 
 		builder.addAttributeInfo(AttributeInfoBuilder.define("ims.aim.value").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("ims.aim.primary").setType(Boolean.class).build());
@@ -128,12 +132,8 @@ public class UserSchemaBuilder {
 		builder.addAttributeInfo(AttributeInfoBuilder.define("ims.gtalk.value").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("ims.gtalk.primary").setType(Boolean.class).build());
 
-		builder.addAttributeInfo(AttributeInfoBuilder.define("photos.photo.value").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("photos.photo.primary").setType(Boolean.class).build());
-
-		builder.addAttributeInfo(AttributeInfoBuilder.define("photos.thumbnail.value").build());
-		builder.addAttributeInfo(
-				AttributeInfoBuilder.define("photos.thumbnail.primary").setType(Boolean.class).build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("photos.profile.value").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("photos.profile.primary").setType(Boolean.class).build());
 
 		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.work.streetAddress").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.work.locality").build());
@@ -143,30 +143,41 @@ public class UserSchemaBuilder {
 		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.work.formatted").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.work.primary").setType(Boolean.class).build());
 
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.home.streetAddress").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.home.locality").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.home.region").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.home.postalCode").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.home.country").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.home.formatted").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.home.primary").setType(Boolean.class).build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.personal.streetAddress").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.personal.locality").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.personal.region").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.personal.postalCode").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.personal.country").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.personal.formatted").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.personal.primary").setType(Boolean.class).build());
 
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.other.streetAddress").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.other.locality").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.other.region").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.other.postalCode").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.other.country").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.other.formatted").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.other.primary").setType(Boolean.class).build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.attributes.streetAddress").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.attributes.locality").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.attributes.region").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.attributes.postalCode").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.attributes.country").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.attributes.formatted").build());
+		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.attributes.primary").setType(Boolean.class).build());
 
-		builder.addAttributeInfo(AttributeInfoBuilder.define("groups.default.value").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("groups.default.display").build());
+
+		builder.addAttributeInfo(AttributeInfoBuilder.define("groups").setMultiValued(true).build());
 
 		builder.addAttributeInfo(AttributeInfoBuilder.define("entitlements.default.display").build());
 
 		builder.addAttributeInfo(AttributeInfoBuilder.define("roles.default.value").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("roles.default.display").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("roles.default.primary").setType(Boolean.class).build());
+                
+                
+                builder.addAttributeInfo(AttributeInfoBuilder.define("extensionstarttermdates.startDate").setType(Long.class).build());
+                builder.addAttributeInfo(AttributeInfoBuilder.define("extensionstarttermdates.endDate").setType(Long.class).build());
+                
+                builder.addAttributeInfo(AttributeInfoBuilder.define("extensionenterprise.division").build());
+                builder.addAttributeInfo(AttributeInfoBuilder.define("extensionenterprise.manager").setType(Long.class).build());
+                builder.addAttributeInfo(AttributeInfoBuilder.define("extensionenterprise.organization").build());
+                builder.addAttributeInfo(AttributeInfoBuilder.define("extensionenterprise.department").build());
+                builder.addAttributeInfo(AttributeInfoBuilder.define("extensionenterprise.costCenter").build());
+                builder.addAttributeInfo(AttributeInfoBuilder.define("extensionenterprise.employeeNumber").build());
 
 		ObjectClassInfo userSchemaInfo = builder.build();
 		LOGGER.info("The constructed User core schema: {0}", userSchemaInfo);

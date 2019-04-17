@@ -54,8 +54,6 @@ import org.identityconnectors.framework.spi.operations.TestOp;
 import org.identityconnectors.framework.spi.operations.UpdateAttributeValuesOp;
 import org.identityconnectors.framework.spi.operations.UpdateOp;
 
-import com.evolveum.polygon.scim.GroupDataBuilder;;
-
 @ConnectorClass(displayNameKey = "ScimConnector.connector.display", configurationClass = ScimConnectorConfiguration.class)
 
 public class ScimConnector implements Connector, CreateOp, DeleteOp, SchemaOp, SearchOp<Filter>, TestOp, UpdateOp,
@@ -91,7 +89,8 @@ public class ScimConnector implements Connector, CreateOp, DeleteOp, SchemaOp, S
 				buildSchemas(schemaBuilder, schemaParser);
 			} else {
 
-				ObjectClassInfo userSchemaInfo = UserSchemaBuilder.getUserSchema();
+				ObjectClassInfo userSchemaInfo;
+				userSchemaInfo = UserSchemaBuilderWorkPlaceDefault.getUserSchema();
 				ObjectClassInfo groupSchemaInfo = GroupDataBuilder.getGroupSchema();
 				schemaBuilder.defineObjectClass(userSchemaInfo);
 				schemaBuilder.defineObjectClass(groupSchemaInfo);
@@ -194,21 +193,13 @@ public class ScimConnector implements Connector, CreateOp, DeleteOp, SchemaOp, S
 		this.configuration = (ScimConnectorConfiguration) configuration;
 		this.configuration.validate();
 
-		if (this.configuration.getLoginURL() != null && !this.configuration.getLoginURL().isEmpty()) {
+		loginUrlParts = this.configuration.getBaseUrl().split("\\."); // e.g.
 
-			loginUrlParts = this.configuration.getLoginURL().split("\\."); // e.g.
-			// https://login.salesforce.com
-
-		} else {
-
-			loginUrlParts = this.configuration.getBaseUrl().split("\\."); // e.g.
-		}
-		// https://login.salesforce.com
 		if (loginUrlParts.length >= 2) {
 			providerName = loginUrlParts[1];
 		}
-		StrategyFetcher fetcher = new StrategyFetcher();
-		strategy = fetcher.fetchStrategy(providerName);
+
+		strategy = new WorkplaceHandlingStrategy(this.configuration);
 
 		LOGGER.info("The provider name is {0}", providerName);
 
@@ -232,6 +223,8 @@ public class ScimConnector implements Connector, CreateOp, DeleteOp, SchemaOp, S
 		}
 		Uid uid = new Uid(DEFAULT);
 		GenericDataBuilder genericDataBuilder = new GenericDataBuilder("");
+
+		LOGGER.error("Update params: {0}", object);
 
 		String endpointName = object.getObjectClassValue();
 
@@ -415,6 +408,8 @@ public class ScimConnector implements Connector, CreateOp, DeleteOp, SchemaOp, S
 		Uid uid = new Uid(DEFAULT);
 		GenericDataBuilder genericDataBuilder = new GenericDataBuilder("");
 
+		LOGGER.error("Add: {0}", object);
+
 		String endpointName = object.getObjectClassValue();
 
 		if (endpointName.equals(ObjectClass.ACCOUNT.getObjectClassValue())) {
@@ -452,6 +447,8 @@ public class ScimConnector implements Connector, CreateOp, DeleteOp, SchemaOp, S
 		}
 		Uid uid = new Uid(DEFAULT);
 		GenericDataBuilder genericDataBuilder = new GenericDataBuilder(DELETE);
+
+		LOGGER.error("Remove: {0}", object);
 
 		String endpointName = object.getObjectClassValue();
 
