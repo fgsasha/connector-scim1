@@ -49,7 +49,9 @@ public class GroupDataBuilder {
 		builder.setType(ObjectClass.GROUP_NAME);
 		builder.addAttributeInfo(Name.INFO);
 
-		builder.addAttributeInfo(AttributeInfoBuilder.define("displayName").setRequired(true).build());
+//		builder.addAttributeInfo(AttributeInfoBuilder.define("displayName").setRequired(true).build());
+//
+//		builder.addAttributeInfo(AttributeInfoBuilder.define("participants").setMultiValued(true).build());
 
 		builder.addAttributeInfo(AttributeInfoBuilder.define("members.Group.value").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("members.Group.display").build());

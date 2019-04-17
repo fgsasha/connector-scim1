@@ -65,6 +65,11 @@ public class GenericDataBuilder implements ObjectTranslator {
 
 	}
 
+
+	public String getOperation() {
+		return operation;
+	}
+
 	/**
 	 * Constructs a json object representation out of the provided data set and
 	 * schema dictionary. The json object representation will contain only

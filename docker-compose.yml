@@ -1,0 +1,13 @@
+version: '3'
+services:
+  midpoint:
+    image: "evolveum/midpoint:3.9"
+#    build: .
+    volumes:
+      - ./target/connector-scim-1.4.4.2-p2.jar:/opt/midpoint/var/icf-connectors/scim.jar
+      - ./midpoint.log:/opt/midpoint/var/log/midpoint.log
+    ports:
+      - "8080:8080"
+      - 5005:5005
+    environment:
+      - MP_JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005

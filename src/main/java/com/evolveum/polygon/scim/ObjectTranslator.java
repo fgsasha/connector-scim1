@@ -59,4 +59,6 @@ public interface ObjectTranslator {
 	 * @return The complete json representation of the provided data set.
 	 */
 	JSONObject translateSetToJson(Set<Attribute> imsAttributes, Set<Attribute> injectedAttributes, String resourceEndPoint);
+
+	String getOperation();
 }

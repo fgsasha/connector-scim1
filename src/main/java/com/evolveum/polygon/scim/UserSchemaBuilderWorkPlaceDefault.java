@@ -159,8 +159,8 @@ public class UserSchemaBuilderWorkPlaceDefault {
 		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.attributes.formatted").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("addresses.attributes.primary").setType(Boolean.class).build());
 
-		builder.addAttributeInfo(AttributeInfoBuilder.define("groups.default.value").build());
-		builder.addAttributeInfo(AttributeInfoBuilder.define("groups.default.display").build());
+
+		builder.addAttributeInfo(AttributeInfoBuilder.define("groups").setMultiValued(true).build());
 
 		builder.addAttributeInfo(AttributeInfoBuilder.define("entitlements.default.display").build());
 
