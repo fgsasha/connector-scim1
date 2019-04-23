@@ -1,16 +1,12 @@
-<resource xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" oid="a5f6a2f5-6b8e-4580-8ae6-e40cbf612e66" version="167">
-    <name>WorkPlaceTest</name>
-    <description>WorkPlaceTest Connector</description>
+<resource xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" oid="2cc5cce2-83f5-435d-83da-631f12357fcd" version="10">
+    <name>Workplace</name>
     <metadata>
-        <createTimestamp>2019-04-09T15:11:00.088Z</createTimestamp>
-        <creatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
-        <createChannel>http://midpoint.evolveum.com/xml/ns/public/model/channels-3#objectImport</createChannel>
-        <modifyTimestamp>2019-04-16T15:39:07.031Z</modifyTimestamp>
+        <modifyTimestamp>2019-04-23T11:48:11.257Z</modifyTimestamp>
         <modifierRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
         <modifyChannel>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#user</modifyChannel>
     </metadata>
-    <operationExecution id="63">
-        <timestamp>2019-04-15T17:29:06.369Z</timestamp>
+    <operationExecution id="1">
+        <timestamp>2019-04-23T11:39:29.774Z</timestamp>
         <operation>
             <objectDelta>
                 <t:changeType>modify</t:changeType>
@@ -19,16 +15,16 @@
             <executionResult>
                 <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
                 <status>success</status>
-                <token>1000000000000001058</token>
+                <token>1000000000000003427</token>
             </executionResult>
-            <objectName>WorkPlaceTest</objectName>
+            <objectName>Workplace</objectName>
         </operation>
         <status>success</status>
         <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
         <channel>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#user</channel>
     </operationExecution>
-    <operationExecution id="64">
-        <timestamp>2019-04-16T14:33:59.808Z</timestamp>
+    <operationExecution id="4">
+        <timestamp>2019-04-23T11:44:41.136Z</timestamp>
         <operation>
             <objectDelta>
                 <t:changeType>modify</t:changeType>
@@ -37,16 +33,16 @@
             <executionResult>
                 <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
                 <status>success</status>
-                <token>1000000000000000125</token>
+                <token>1000000000000003553</token>
             </executionResult>
-            <objectName>WorkPlaceTest</objectName>
+            <objectName>Workplace</objectName>
         </operation>
         <status>success</status>
         <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
         <channel>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#user</channel>
     </operationExecution>
-    <operationExecution id="65">
-        <timestamp>2019-04-16T15:25:02.053Z</timestamp>
+    <operationExecution id="5">
+        <timestamp>2019-04-23T11:48:11.325Z</timestamp>
         <operation>
             <objectDelta>
                 <t:changeType>modify</t:changeType>
@@ -55,45 +51,9 @@
             <executionResult>
                 <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
                 <status>success</status>
-                <token>1000000000000000118</token>
+                <token>1000000000000003620</token>
             </executionResult>
-            <objectName>WorkPlaceTest</objectName>
-        </operation>
-        <status>success</status>
-        <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
-        <channel>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#user</channel>
-    </operationExecution>
-    <operationExecution id="66">
-        <timestamp>2019-04-16T15:28:55.561Z</timestamp>
-        <operation>
-            <objectDelta>
-                <t:changeType>modify</t:changeType>
-                <t:objectType>c:ResourceType</t:objectType>
-            </objectDelta>
-            <executionResult>
-                <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
-                <status>success</status>
-                <token>1000000000000001476</token>
-            </executionResult>
-            <objectName>WorkPlaceTest</objectName>
-        </operation>
-        <status>success</status>
-        <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
-        <channel>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#user</channel>
-    </operationExecution>
-    <operationExecution id="67">
-        <timestamp>2019-04-16T15:39:07.158Z</timestamp>
-        <operation>
-            <objectDelta>
-                <t:changeType>modify</t:changeType>
-                <t:objectType>c:ResourceType</t:objectType>
-            </objectDelta>
-            <executionResult>
-                <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
-                <status>success</status>
-                <token>1000000000000000133</token>
-            </executionResult>
-            <objectName>WorkPlaceTest</objectName>
+            <objectName>Workplace</objectName>
         </operation>
         <status>success</status>
         <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
@@ -102,51 +62,46 @@
     <operationalState>
         <lastAvailabilityStatus>up</lastAvailabilityStatus>
     </operationalState>
-    <connectorRef oid="3f1afdbb-e2cb-411c-b7dc-67b36af07ebc" relation="org:default" type="c:ConnectorType"/>
+    <connectorRef oid="YOUR_OID" relation="org:default" type="c:ConnectorType"/>
     <connectorConfiguration xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector-schema-3">
-        <icfc:resultsHandlerConfiguration>
-            <icfc:enableNormalizingResultsHandler>true</icfc:enableNormalizingResultsHandler>
-            <icfc:enableFilteredResultsHandler>true</icfc:enableFilteredResultsHandler>
-            <icfc:enableAttributesToGetSearchResultsHandler>true</icfc:enableAttributesToGetSearchResultsHandler>
-        </icfc:resultsHandlerConfiguration>
-        <icfc:configurationProperties xmlns:gen119="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/com.evolveum.polygon.scim.connector-scim/com.evolveum.polygon.scim.ScimConnector">
-            <gen119:authentication>token</gen119:authentication>
-            <gen119:token>
+        <icfc:configurationProperties xmlns:gen7="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/com.evolveum.polygon.scim.connector-scim/com.evolveum.polygon.scim.ScimConnector">
+            <gen7:authentication>token</gen7:authentication>
+            <gen7:token>
                 <t:encryptedData>
                     <t:encryptionMethod>
                         <t:algorithm>http://www.w3.org/2001/04/xmlenc#aes128-cbc</t:algorithm>
                     </t:encryptionMethod>
                     <t:keyInfo>
-                        <t:keyName>VuyHM7zvVsadC/e3ty4rElxaIYY=</t:keyName>
+                        <t:keyName>veS8GfpTdEBFVsqzKEZz/qRihf0=</t:keyName>
                     </t:keyInfo>
                     <t:cipherData>
-                        <t:cipherValue>yzuqAxE5MHaxvb2S9rfsSBQX2DLW1LJ+OtG8SeR5/q9p0yyDEdjAaQOwkaZXvVAQv+6xAs3b5CwRumvGQm0X/Z14ZKoP0vCqJyCn6hig1OYTRMP8U2KacmSg+uObouJ4LCulsrLXDZKBjwHxphsVuTGF6khnQW0Lxtq60la+g2MwEr9JqiE3VmudNdnvGc83x7+UzLIHFiyoikS3TB4R0bq4Z74of41J2r1clrtx+5wdIYdIHx5vsPn5ZK+5jCiafb51cnA54RHJL8x+ABy1Vq7Cs6t43c4T9n3IPSewdPPPmkZp2ci6VemJCkTYi+2DHpbIvYQjIUe3nXec/hNMkUrVNqj+gJH2S9QA+ekOWPINcTUDl0lrOeI/Iawa79ojjdkeYl2AsM162ziHjhTWNw7gtPBRt6b7fQfF6AzmHrE=</t:cipherValue>
+                        <t:cipherValue>ZgSCn37vioyEFwUCm6+KAlGCQU5JarzUSyzD7rRXRq1keceeHk9ZfN1oPc9PD99s1kj/0M3Joag/2kH1Ob7b00UGgRL4EcM47WoVnEfSKljvfj7DlVtGMW9h/bofd0tyaznMPZMqDnNJnVr9HIG/8cDHHtBve3Vco2ujojo0bC0VSCyaTCGSuwRABwwC4XPfugwttsDV/+4fsaCvYC/2BtQfaLojbeGAps0g9W82e6Ux0LC9p5rIkpAoZjpDmFwKjlyf1JbeG11XnvxSjGTysOZbIPtaGx8/4288HfGYQTq/ZNfXuplxtVHQz1L+3xvuJaIxKeXJmy9xEaUKBNU7bBonW8WfcJP2FjxU5+wT8YUlxaEl40Ay7EK9jF8lEpZurlQhlSQKMQAESLdRcjF0+pGW6SP+UN7CbOMpUBiUWGU=</t:cipherValue>
                     </t:cipherData>
                 </t:encryptedData>
-            </gen119:token>
-            <gen119:clientSecret>
+            </gen7:token>
+            <gen7:clientSecret>
                 <t:encryptedData>
                     <t:encryptionMethod>
                         <t:algorithm>http://www.w3.org/2001/04/xmlenc#aes128-cbc</t:algorithm>
                     </t:encryptionMethod>
                     <t:keyInfo>
-                        <t:keyName>VuyHM7zvVsadC/e3ty4rElxaIYY=</t:keyName>
+                        <t:keyName>veS8GfpTdEBFVsqzKEZz/qRihf0=</t:keyName>
                     </t:keyInfo>
                     <t:cipherData>
-                        <t:cipherValue>gotYeEvSxTK3uUV6ywj0QZBWvJO1VfuIw3v+YiAVMwUC2HereZ+a8ooGw4b3u8WkEqSZTiQg/MwRMJDfRXsgYQ==</t:cipherValue>
+                        <t:cipherValue>OrymKuLroeQChgxlj554xzHHmCH7Tx7FZJHxRvqLhPCo4qSy4tvt0vFl6wjvoeJ/x12FwHCQJdJ58Wh3u8pvSw==</t:cipherValue>
                     </t:cipherData>
                 </t:encryptedData>
-            </gen119:clientSecret>
-            <gen119:clientID>401308937347927</gen119:clientID>
-            <gen119:endpoint>/scim</gen119:endpoint>
-            <gen119:version>/v1</gen119:version>
-            <gen119:baseUrl>https://www.facebook.com/company/2392470967493951</gen119:baseUrl>
+            </gen7:clientSecret>
+            <gen7:clientID>401308937347927</gen7:clientID>
+            <gen7:endpoint>/scim</gen7:endpoint>
+            <gen7:version>/v1</gen7:version>
+            <gen7:baseUrl>https://www.facebook.com/company/2392470967493951</gen7:baseUrl>
         </icfc:configurationProperties>
     </connectorConfiguration>
     <schema>
         <cachingMetadata>
-            <retrievalTimestamp>2019-04-16T15:39:08.815Z</retrievalTimestamp>
-            <serialNumber>ed6481ede7af0f86-ee6ef34c27c945ae</serialNumber>
+            <retrievalTimestamp>2019-04-23T11:43:30.413Z</retrievalTimestamp>
+            <serialNumber>543329786aa457d7-e15499eeed3c11d2</serialNumber>
         </cachingMetadata>
         <definition>
             <xsd:schema xmlns:a="http://prism.evolveum.com/xml/ns/public/annotation-3" xmlns:ra="http://midpoint.evolveum.com/xml/ns/public/resource/annotation-3" xmlns:tns="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3">
@@ -991,167 +946,32 @@
         </definition>
     </schema>
     <schemaHandling>
-        <objectType id="4">
+        <objectType id="2">
             <kind>account</kind>
-            <intent>default</intent>
             <default>true</default>
             <objectClass>ri:AccountObjectClass</objectClass>
-            <attribute id="5">
-                <c:ref>icfs:uid</c:ref>
-                <displayName>Entry UUID</displayName>
-                <limitations>
-                    <access>
-                        <read>true</read>
-                    </access>
-                </limitations>
-                <tolerant>false</tolerant>
-                <exclusiveStrong>false</exclusiveStrong>
-            </attribute>
-            <attribute id="9">
-                <c:ref>icfs:name</c:ref>
-                <displayName>userName</displayName>
-                <outbound>
-                    <strength>strong</strength>
-                    <source>
-                        <c:path>emailAddress</c:path>
-                    </source>
-                </outbound>
-            </attribute>
-            <attribute id="27">
-                <c:ref>ri:name.formatted</c:ref>
-                <tolerant>true</tolerant>
-                <exclusiveStrong>false</exclusiveStrong>
-                <outbound>
-                    <authoritative>true</authoritative>
-                    <exclusive>false</exclusive>
-                    <strength>normal</strength>
-                    <source>
-                        <c:path>fullName</c:path>
-                    </source>
-                </outbound>
-            </attribute>
-            <attribute id="32">
-                <c:ref>ri:externalId</c:ref>
-                <outbound>
-                    <authoritative>true</authoritative>
-                    <strength>normal</strength>
-                    <source>
-                        <c:path>extension/mantisID</c:path>
-                    </source>
-                </outbound>
-            </attribute>
-            <attribute id="36">
-                <c:ref>ri:extensionenterprise.department</c:ref>
-                <outbound>
-                    <strength>normal</strength>
-                    <source>
-                        <c:path>organizationalUnit</c:path>
-                    </source>
-                </outbound>
-            </attribute>
-            <attribute id="35">
-                <c:ref>ri:extensionenterprise.organization</c:ref>
-                <outbound>
-                    <strength>normal</strength>
-                    <source>
-                        <c:path>organization</c:path>
-                    </source>
-                </outbound>
-            </attribute>
             <association id="57">
                 <c:ref>ri:groups</c:ref>
                 <displayName>Group Membership</displayName>
-                <tolerant>false</tolerant>
+                <tolerant>true</tolerant>
                 <kind>entitlement</kind>
                 <intent>group</intent>
                 <direction>subjectToObject</direction>
                 <associationAttribute>ri:groups</associationAttribute>
                 <valueAttribute>icfs:uid</valueAttribute>
             </association>
-            <activation>
-                <existence>
-                    <outbound id="23">
-                        <strength>weak</strength>
-                        <expression>
-                            <c:path xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="t:ItemPathType">$focusExists</c:path>
-                        </expression>
-                    </outbound>
-                </existence>
-                <administrativeStatus>
-                    <fetchStrategy>implicit</fetchStrategy>
-                    <outbound id="24">
-                        <authoritative>false</authoritative>
-                        <exclusive>false</exclusive>
-                        <strength>strong</strength>
-                        <expression>
-                            <script xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="c:ScriptExpressionEvaluatorType">
-                                <code>
-                                    import com.evolveum.midpoint.xml.ns._public.common.common_3.ActivationStatusType;
-                                    if (legal) {
-                                    input;
-                                    } else {
-                                    ActivationStatusType.DISABLED;
-                                    }
-                                </code>
-                            </script>
-                        </expression>
-                    </outbound>
-                </administrativeStatus>
-            </activation>
         </objectType>
-        <objectType id="49">
+        <objectType id="3">
             <kind>entitlement</kind>
             <intent>group</intent>
-            <displayName>Workplace Groups</displayName>
-            <default>true</default>
+            <default>false</default>
             <objectClass>ri:GroupObjectClass</objectClass>
-            <attribute id="50">
-                <c:ref>icfs:name</c:ref>
-                <displayName>Group name</displayName>
-                <outbound>
-                    <strength>strong</strength>
-                    <source>
-                        <c:path>displayName</c:path>
-                    </source>
-                </outbound>
-                <inbound id="54">
-                    <target>
-                        <c:path>name</c:path>
-                    </target>
-                </inbound>
-                <inbound id="55">
-                    <expression>
-                        <value>Workplace-Group</value>
-                    </expression>
-                    <target>
-                        <c:path>roleType</c:path>
-                    </target>
-                </inbound>
-            </attribute>
-            <attribute id="51">
-                <c:ref>icfs:uid</c:ref>
-                <displayName>Entry UID</displayName>
-                <limitations>
-                    <access>
-                        <read>true</read>
-                    </access>
-                </limitations>
-            </attribute>
-            <attribute id="53">
-                <c:ref>ri:members.Group.value</c:ref>
-                <displayName>Groups which are part of the group</displayName>
-                <limitations>
-                    <access>
-                        <read>true</read>
-                    </access>
-                </limitations>
-            </attribute>
         </objectType>
     </schemaHandling>
     <capabilities>
         <cachingMetadata>
-            <retrievalTimestamp>2019-04-16T15:39:08.811Z</retrievalTimestamp>
-            <serialNumber>6f3e32d95fe0f9f1-4c50225b402a0d17</serialNumber>
+            <retrievalTimestamp>2019-04-23T11:43:30.409Z</retrievalTimestamp>
+            <serialNumber>e5b4231687fd44fb-22a531d4f367abb0</serialNumber>
         </cachingMetadata>
         <native xmlns:cap="http://midpoint.evolveum.com/xml/ns/public/resource/capabilities-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="c:CapabilityCollectionType">
             <cap:schema/>
@@ -1177,141 +997,19 @@
                 <cap:returnDefaultAttributesOption>false</cap:returnDefaultAttributesOption>
             </cap:read>
         </native>
-        <configured xmlns:cap="http://midpoint.evolveum.com/xml/ns/public/resource/capabilities-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="c:CapabilityCollectionType">
-            <cap:testConnection>
-                <cap:enabled>true</cap:enabled>
-            </cap:testConnection>
-            <cap:create>
-                <cap:enabled>true</cap:enabled>
-            </cap:create>
-            <cap:update>
-                <cap:enabled>true</cap:enabled>
-            </cap:update>
-            <cap:delete>
-                <cap:enabled>true</cap:enabled>
-            </cap:delete>
-            <cap:script>
-                <cap:enabled>true</cap:enabled>
-                <cap:host>
-                    <cap:type>connector</cap:type>
-                </cap:host>
-            </cap:script>
-            <cap:addRemoveAttributeValues>
-                <cap:enabled>true</cap:enabled>
-            </cap:addRemoveAttributeValues>
-            <cap:activation>
-                <cap:enabled>true</cap:enabled>
-                <cap:status>
-                    <cap:enabled>true</cap:enabled>
-                    <cap:returnedByDefault>true</cap:returnedByDefault>
-                    <cap:attribute>ri:active</cap:attribute>
-                    <cap:enableValue>true</cap:enableValue>
-                    <cap:disableValue>false</cap:disableValue>
-                    <cap:ignoreAttribute>true</cap:ignoreAttribute>
-                </cap:status>
-                <cap:validFrom>
-                    <cap:enabled>false</cap:enabled>
-                    <cap:returnedByDefault>false</cap:returnedByDefault>
-                </cap:validFrom>
-                <cap:validTo>
-                    <cap:enabled>false</cap:enabled>
-                    <cap:returnedByDefault>false</cap:returnedByDefault>
-                </cap:validTo>
-                <cap:lockoutStatus>
-                    <cap:enabled>false</cap:enabled>
-                    <cap:returnedByDefault>false</cap:returnedByDefault>
-                    <cap:ignoreAttribute>true</cap:ignoreAttribute>
-                </cap:lockoutStatus>
-            </cap:activation>
-            <cap:credentials>
-                <cap:enabled>true</cap:enabled>
-                <cap:password>
-                    <cap:enabled>true</cap:enabled>
-                    <cap:returnedByDefault>false</cap:returnedByDefault>
-                </cap:password>
-            </cap:credentials>
-            <cap:read>
-                <cap:enabled>true</cap:enabled>
-                <cap:returnDefaultAttributesOption>false</cap:returnDefaultAttributesOption>
-            </cap:read>
-        </configured>
     </capabilities>
     <synchronization>
         <objectSynchronization>
-            <name>Account sync</name>
-            <objectClass>AccountObjectClass</objectClass>
+            <name>User</name>
             <kind>account</kind>
-            <intent>default</intent>
             <enabled>true</enabled>
-            <correlation>
-                <q:equal>
-                    <q:path>c:emailAddress</q:path>
-                    <expression>
-                        <path>declare namespace icfs='http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3'; $account/attributes/icfs:name</path>
-                    </expression>
-                </q:equal>
-            </correlation>
-            <reconcile>false</reconcile>
-            <reaction>
-                <situation>linked</situation>
-                <synchronize>true</synchronize>
-            </reaction>
-            <reaction>
-                <situation>unlinked</situation>
-                <synchronize>true</synchronize>
-                <action>
-                    <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#link</handlerUri>
-                </action>
-            </reaction>
-            <reaction>
-                <situation>deleted</situation>
-                <action>
-                    <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#unlink</handlerUri>
-                </action>
-            </reaction>
         </objectSynchronization>
         <objectSynchronization>
-            <name>Group sync</name>
-            <objectClass>GroupObjectClass</objectClass>
+            <name>Group</name>
             <kind>entitlement</kind>
             <intent>group</intent>
-            <focusType>c:RoleType</focusType>
             <enabled>true</enabled>
-            <correlation>
-                <q:equal>
-                    <q:path>c:name</q:path>
-                    <expression xmlns="">
-                        <path>declare namespace icfs='http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3'; $account/attributes/icfs:name</path>
-                    </expression>
-                </q:equal>
-            </correlation>
-            <reconcile>true</reconcile>
-            <reaction>
-                <situation>linked</situation>
-                <synchronize>true</synchronize>
-                <reconcile>false</reconcile>
-            </reaction>
-            <reaction>
-                <situation>unlinked</situation>
-                <synchronize>true</synchronize>
-                <reconcile>false</reconcile>
-                <action>
-                    <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#link</handlerUri>
-                </action>
-            </reaction>
-            <reaction>
-                <situation>deleted</situation>
-                <action>
-                    <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#unlink</handlerUri>
-                </action>
-            </reaction>
-            <reaction>
-                <situation>unmatched</situation>
-                <reconcile>false</reconcile>
-                <action>
-                    <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#addFocus</handlerUri>
-                </action>
-            </reaction>
+            <reconcile>false</reconcile>
         </objectSynchronization>
     </synchronization>
 </resource>
