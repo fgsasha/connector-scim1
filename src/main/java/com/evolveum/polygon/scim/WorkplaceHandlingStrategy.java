@@ -94,6 +94,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 	private static HttpClient httpClient;
 	private static Header authHeader;
+	private static String communityId;
 
 	private static final Log LOGGER = Log.getLog(WorkplaceHandlingStrategy.class);
 	private static final String CANONICALVALUES = "canonicalValues";
@@ -150,6 +151,11 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 		authHeader = accessManager.getAuthHeader();
 		if (authHeader == null) {
 			throw new ConnectorException("The data needed for authorization of request to the provider was not found.");
+		}
+		communityId = getCommunityId();
+
+		if(communityId == null){
+			throw new ConnectorException("Community ID is not found, please check if token is correct");
 		}
 	}
 
@@ -353,7 +359,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 		if(resourceEndPoint.equals(GROUPS)){
 			LOGGER.info("GROUP GRAPH");
-			handleGroupQuery(authHeader, httpClient, resultHandler, q);
+			handleGroupQuery(resultHandler, q);
 			return;
 		}
 
@@ -534,7 +540,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 	}
 
 
-	private void handleGroupQuery(Header authHeader, HttpClient httpClient, ResultsHandler resultHandler, String gid) {
+	private void handleGroupQuery(ResultsHandler resultHandler, String gid) {
 		if(!gid.equals("")){
 			JSONObject group = getGroup(gid);
 
@@ -545,7 +551,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 			}
 		}
 
-		JSONObject groups = getGroups("2392470957493952", authHeader, httpClient);
+		JSONObject groups = getGroups();
 
 		int amountOfResources = groups.getJSONArray("data").length();
 
@@ -1874,8 +1880,27 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
     }
 
 
+    private String getCommunityId(){
+        String uri = GRAPH_API_BASE_URI + SLASH + "community";
 
-	private JSONObject getGroupsPage(String communityId, String page, Header authHeader, HttpClient httpClient){
+        LOGGER.info("getCommunityId: {0}", uri);
+        HttpGet httpGet = buildHttpGet(uri);
+
+        String responseString = executeRequest(httpGet);
+
+        if (responseString != null && !responseString.isEmpty()) {
+            JSONObject jsonObject = new JSONObject(responseString);
+            if(jsonObject.has("id")){
+                return jsonObject.getString("id");
+            }
+        }
+
+        LOGGER.error("Failed getCommunityId: {0}", uri);
+        return null;
+    }
+
+
+	private JSONObject getGroupsPage(String page){
 		String uri = GRAPH_API_BASE_URI + SLASH + communityId + SLASH + "groups";
 
 		if(!page.equals("")){
@@ -2118,13 +2143,13 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 	}
 
 
-	private JSONObject getGroups(String communityId, Header authHeader, HttpClient httpClient){
-		JSONObject result = getGroupsPage(communityId, "", authHeader, httpClient);
+	private JSONObject getGroups(){
+		JSONObject result = getGroupsPage("");
 		JSONArray resultData = result.getJSONArray("data");
 
 		String nextPage = getNextPage(result);
 		while(nextPage != null){
-			result = getGroupsPage(communityId, nextPage, authHeader, httpClient);
+			result = getGroupsPage(nextPage);
 			nextPage = getNextPage(result);
 			JSONArray partialData = result.getJSONArray("data");
 
