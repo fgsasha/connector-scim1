@@ -586,9 +586,9 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 							addUserToGroup(uid.getUidValue(), val.toString());
 						}
 					}
+					return uid;
 				}
 			}
-			return uid;
 		}
 
 		String uri = new StringBuilder(scimBaseUri).append(SLASH).append(resourceEndPoint).append(SLASH)
