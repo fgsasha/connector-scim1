@@ -743,91 +743,154 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 	@Override
 	public ParserSchemaScim querySchemas(String providerName, String resourceEndPoint,
-			ScimConnectorConfiguration conf) {
+										 ScimConnectorConfiguration conf) {
 
 		List<String> excludedAttrs = new ArrayList<String>();
 		ServiceAccessManager accessManager = new ServiceAccessManager(conf);
 
+		Header authHeader = accessManager.getAuthHeader();
 		String scimBaseUri = accessManager.getBaseUri();
 
-		if (scimBaseUri.isEmpty()) {
+		if (authHeader == null || scimBaseUri.isEmpty()) {
 
 			throw new ConnectorException("The data needed for authorization of request to the provider was not found.");
 		}
+
+		HttpClient httpClient = initHttpClient(conf);
 
 		String uri = new StringBuilder(scimBaseUri).append(SLASH).append(resourceEndPoint).toString();
 
 		LOGGER.info("Qeury url: {0}", uri);
 		HttpGet httpGet = buildHttpGet(uri);
-
-		String responseString = executeRequest(httpGet);
-
-		if (responseString != null && !responseString.isEmpty()) {
-
-			JSONObject jsonObject = new JSONObject(responseString);
-
-			//Normzalize JSON
-			jsonObject=normalizeJSON(jsonObject);
-
-			ParserSchemaScim schemaParser = processSchemaResponse(jsonObject);
-
-
-			excludedAttrs= excludeFromAssembly(excludedAttrs);
-
-			for(String attr: excludedAttrs){
-				LOGGER.info("The attribute \"{0}\" will be omitted from the connId object build.", attr);
+		try (CloseableHttpResponse response = (CloseableHttpResponse) httpClient.execute(httpGet)) {
+			HttpEntity entity = response.getEntity();
+			String responseString;
+			if (entity != null) {
+				responseString = EntityUtils.toString(entity);
+			} else {
+				responseString = "";
 			}
 
-			return schemaParser;
-		} else {
+			int statusCode = response.getStatusLine().getStatusCode();
+			LOGGER.info("Schema query status code: {0} ", statusCode);
+			if (statusCode == 200) {
 
-			LOGGER.warn("Response string for the \"schemas/\" endpoint returned empty ");
+				if (!responseString.isEmpty()) {
 
-			String resources[] = { USERS, GROUPS };
-			JSONObject responseObject = new JSONObject();
-			JSONArray responseArray = new JSONArray();
-			for (String resourceName : resources) {
-				uri = new StringBuilder(scimBaseUri).append(SLASH).append(resourceEndPoint).append(resourceName)
-						.toString();
-				LOGGER.info("Additional query url: {0}", uri);
+					//LOGGER.warn("The returned response string for the \"schemas/\" endpoint");
 
-				httpGet = buildHttpGet(uri);
-
-				responseString = executeRequest(httpGet);
-
-				if (responseString != null && !responseString.isEmpty()) {
 					JSONObject jsonObject = new JSONObject(responseString);
-					//NormalizeJson
-					jsonObject=normalizeJSON(jsonObject);
-					jsonObject = injectMissingSchemaAttributes(resourceName, jsonObject);
 
-					responseArray.put(jsonObject);
+					//Normzalize JSON
+					jsonObject=normalizeJSON(jsonObject);
+
+					ParserSchemaScim schemaParser = processSchemaResponse(jsonObject);
+
+
+					excludedAttrs= excludeFromAssembly(excludedAttrs);
+
+					for(String attr: excludedAttrs){
+						LOGGER.info("The attribute \"{0}\" will be omitted from the connId object build.", attr);
+					}
+
+					return schemaParser;
+
 				} else {
 
-					LOGGER.warn(
-							"No definition for provided shcemas was found, the connector will switch to default core schema configuration!");
-					return null;
+					LOGGER.warn("Response string for the \"schemas/\" endpoint returned empty ");
+
+					String resources[] = { USERS, GROUPS };
+					JSONObject responseObject = new JSONObject();
+					JSONArray responseArray = new JSONArray();
+					for (String resourceName : resources) {
+						uri = new StringBuilder(scimBaseUri).append(SLASH).append(resourceEndPoint).append(resourceName)
+								.toString();
+						LOGGER.info("Additional query url: {0}", uri);
+
+						httpGet = buildHttpGet(uri);
+
+						try (CloseableHttpResponse secondaryResponse = (CloseableHttpResponse) httpClient
+								.execute(httpGet)) {
+
+							statusCode = secondaryResponse.getStatusLine().getStatusCode();
+							responseString = EntityUtils.toString(secondaryResponse.getEntity());
+
+							if (statusCode == 200 && responseString !=null && !responseString.isEmpty()) {
+
+								/*LOGGER.info(
+										"Schema endpoint response: {0}", responseString);
+								*/
+								JSONObject jsonObject = new JSONObject(responseString);
+								//NormalizeJson
+								jsonObject=normalizeJSON(jsonObject);
+								jsonObject = injectMissingSchemaAttributes(resourceName, jsonObject);
+
+								responseArray.put(jsonObject);
+
+							} else {
+
+								LOGGER.warn(
+										"No definition for provided shcemas was found, the connector will switch to default core schema configuration!");
+								return null;
+							}
+						}
+						responseObject.put(RESOURCES, responseArray);
+
+					}
+					if (responseObject == JSONObject.NULL) {
+
+						return null;
+
+					} else {
+
+						excludedAttrs= excludeFromAssembly(excludedAttrs);
+
+						for(String attr: excludedAttrs){
+							LOGGER.info("The attribute \"{0}\" will be omitted from the connId object build.", attr);
+						}
+
+						return processSchemaResponse(responseObject);
+					}
 				}
-
-				responseObject.put(RESOURCES, responseArray);
-
-			}
-			if (responseObject == JSONObject.NULL) {
-
-				return null;
 
 			} else {
 
-				excludedAttrs= excludeFromAssembly(excludedAttrs);
+				handleInvalidStatus("while querying for schema. ", responseString, "schema", statusCode);
+			}
+		} catch (ClientProtocolException e) {
+			LOGGER.error(
+					"An protocol exception has occurred while in the process of querying the provider Schemas resource object. Possible mismatch in interpretation of the HTTP specification: {0}",
+					e.getLocalizedMessage());
+			LOGGER.info(
+					"An protocol exception has occurred while in the process of querying the provider Schemas resource object. Possible mismatch in interpretation of the HTTP specification: {0}",
+					e);
+			throw new ConnectorException(
+					"An protocol exception has occurred while in the process of querying the provider Schemas resource object. Possible mismatch in interpretation of the HTTP specification",
+					e);
+		} catch (IOException e) {
 
-				for(String attr: excludedAttrs){
-					LOGGER.info("The attribute \"{0}\" will be omitted from the connId object build.", attr);
-				}
+			StringBuilder errorBuilder = new StringBuilder(
+					"An error has occurred while processing the http response. Occurrence in the process of querying the provider Schemas resource object");
 
-				return processSchemaResponse(responseObject);
+			if ((e instanceof SocketTimeoutException || e instanceof NoRouteToHostException)) {
+
+				errorBuilder.insert(0, "The connection timed out. ");
+
+				throw new OperationTimeoutException(errorBuilder.toString(), e);
+			} else {
+
+				LOGGER.error(
+						"An error has occurred while processing the http response. Occurrence in the process of querying the provider Schemas resource object: {0}",
+						e.getLocalizedMessage());
+				LOGGER.info(
+						"An error has occurred while processing the http response. Occurrence in the process of querying the provider Schemas resource object: {0}",
+						e);
+
+				throw new ConnectorIOException(errorBuilder.toString(), e);
 			}
 		}
 
+		return null;
 	}
 
 	@Override
