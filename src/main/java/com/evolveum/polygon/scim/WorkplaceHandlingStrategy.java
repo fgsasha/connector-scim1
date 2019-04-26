@@ -75,6 +75,7 @@ import org.json.JSONObject;
 import com.evolveum.polygon.scim.ErrorHandler;
 import com.evolveum.polygon.scim.common.HttpPatch;
 
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -95,6 +96,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 	private static HttpClient httpClient;
 	private static Header authHeader;
 	private static String communityId;
+	private static String firstAdminId;
 
 	private static final Log LOGGER = Log.getLog(WorkplaceHandlingStrategy.class);
 	private static final String CANONICALVALUES = "canonicalValues";
@@ -156,6 +158,11 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 		if(communityId == null){
 			throw new ConnectorException("Community ID is not found, please check if token is correct");
+		}
+
+		firstAdminId = getFirstAdminId();
+		if(firstAdminId == null){
+			throw new ConnectorException("Can not find any admin in community");
 		}
 	}
 
@@ -594,6 +601,15 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 					}
 					return uid;
 				}
+
+				if(attr.getName().equals("__ENABLE__")){
+					for(Object val: attr.getValue()){
+						if(val.toString().equals("false")) {
+							addAdminToGroupsWhereUserIsLastMember(uid.getUidValue());
+						}
+					}
+
+				}
 			}
 		}
 
@@ -721,6 +737,21 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
             }
 		return null;
 
+	}
+
+	private void addAdminToGroupsWhereUserIsLastMember(String uid) {
+		JSONObject userGroups = getUserGroups(uid);
+
+		int amountOfResources = userGroups.getJSONArray("data").length();
+
+		for (int i = 0; i < amountOfResources; i++) {
+			JSONObject group = userGroups.getJSONArray("data").getJSONObject(i);
+
+			String gid = String.valueOf(group.getLong(ID));
+			if(getGroupMembersCount(gid) <= 1){
+				addUserToGroup(firstAdminId, gid);
+			}
+		}
 	}
 
 	@Override
@@ -1968,7 +1999,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 		String responseString = executeRequest(httpPost);
 
 		if (responseString != null && !responseString.isEmpty()) {
-			LOGGER.info("Deletion of user from a group was successful");
+			LOGGER.info("Adding user to a group was successful");
 			return true;
 		}
 
@@ -1978,6 +2009,13 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 
 	private boolean deleteUserFromGroup(String uid, String gid){
+		int groupMembers = getGroupMembersCount(gid);
+		if(groupMembers < 2){
+			LOGGER.error("Can not delete User {0} from Group {1}, group has {2} members", uid, gid, groupMembers);
+			throw new ConnectorException("Can not delete user from a group, it is last member");
+		}
+
+
 		String uri = GRAPH_API_BASE_URI + SLASH + gid + SLASH + "members" + SLASH + uid;
 		HttpDelete httpDelete = buildHttpDelete(uri);
 		String responseString = executeRequest(httpDelete);
@@ -1991,7 +2029,56 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 		return false;
 	}
 
-    /** Get current user attribute values
+	private int getGroupMembersCount(String gid) {
+		String uri = GRAPH_API_BASE_URI + SLASH + gid + SLASH + "members";
+		LOGGER.info("getGroupMembersCount url: {0}", uri);
+		HttpGet httpGet = buildHttpGet(uri);
+		String responseString = executeRequest(httpGet);
+
+		if (responseString != null && !responseString.isEmpty()) {
+			JSONObject jsonObject = new JSONObject(responseString);
+			return jsonObject.getJSONArray("data").length();
+		}
+
+		return 0;
+	}
+
+	private String getFirstAdminId() {
+		String uri = GRAPH_API_BASE_URI + SLASH + communityId + SLASH + "?fields=admins";
+		LOGGER.info("getFirstAdminId url: {0}", uri);
+		HttpGet httpGet = buildHttpGet(uri);
+		String responseString = executeRequest(httpGet);
+
+		if (responseString != null && !responseString.isEmpty()) {
+			JSONObject jsonObject = new JSONObject(responseString);
+
+			if(!jsonObject.has("admins")){
+				return null;
+			}
+
+			JSONObject admins = jsonObject.getJSONObject("admins");
+
+			if(!admins.has("data")){
+				return null;
+			}
+
+			JSONArray adminsArray = admins.getJSONArray("data");
+
+			if(adminsArray.length() == 0){
+				return null;
+			}
+
+			JSONObject firstAdmin = adminsArray.getJSONObject(0);
+
+			LOGGER.info("First admin (fallback) - {0}", firstAdmin.getString("name"));
+
+			return firstAdmin.getString("id");
+		}
+
+		return null;
+	}
+
+	/** Get current user attribute values
      * 
      * @param uri   GET URL
      * @return JSON output of GET User methog
