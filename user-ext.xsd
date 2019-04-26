@@ -1,0 +1,587 @@
+<xsd:schema elementFormDefault="qualified"
+            targetNamespace="http://example.com/xml/ns/mySchema"
+            xmlns:tns="http://example.com/xml/ns/mySchema"
+            xmlns:a="http://prism.evolveum.com/xml/ns/public/annotation-3"
+            xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+            xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:import namespace="http://midpoint.evolveum.com/xml/ns/public/common/common-3"/>
+    <xsd:import namespace="http://prism.evolveum.com/xml/ns/public/types-3"/>
+
+    <xsd:complexType name="UserExtensionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <a:extension ref="c:UserType"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="Team" type="xsd:string" minOccurs="0" maxOccurs="100">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Team</a:displayName>
+                        <a:displayOrder>300</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <!-- From Midpoint Resource Mapping File -->
+            <xsd:element name="hrmId" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>HRM ID</a:displayName>
+                        <a:displayOrder>199</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emcEmployeesId" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>EMC Employee ID</a:displayName>
+                        <a:displayOrder>200</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emcUsersDmsId" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>DMS ID</a:displayName>
+                        <a:displayOrder>201</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emcEmployeesGender" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Gender</a:displayName>
+                        <a:displayOrder>102</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="employeeCreated" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Source creation date</a:displayName>
+                        <a:displayOrder>250</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="hrmIsDaytime" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>HRM is Daytime</a:displayName>
+                        <a:displayOrder>112</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="hrmPrimaryEmail" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>HRM Private email (primary)</a:displayName>
+                        <a:displayOrder>107</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="hrmPhoneWork" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>HRM Work phone</a:displayName>
+                        <a:displayOrder>108</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="hrmUrl" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>HRM URL</a:displayName>
+                        <a:displayOrder>114</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraBirthday" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Birthday</a:displayName>
+                        <a:displayOrder>103</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraCoManager" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Co-Manager</a:displayName>
+                        <a:displayOrder>110</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraEndOfTrial" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>End of Trial</a:displayName>
+                        <a:displayOrder>111</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraHomePhone" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Home phone</a:displayName>
+                        <a:displayOrder>106</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraIssuedTangibles" type="xsd:string" minOccurs="0" maxOccurs="100">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Tangibles</a:displayName>
+                        <a:displayOrder>113</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraIssueId" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Jira IssueID</a:displayName>
+                        <a:displayOrder>202</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraManager" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Manager</a:displayName>
+                        <a:displayOrder>109</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraMiddleName" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Middle Name</a:displayName>
+                        <a:displayOrder>101</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="personalEmail" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Personal Email</a:displayName>
+                        <a:displayOrder>105</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraUpdated" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Jira updated</a:displayName>
+                        <a:displayOrder>249</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+
+            <xsd:element name="emcCompanies" type="xsd:string" minOccurs="0" maxOccurs="30">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>EMC Companies</a:displayName>
+                        <a:displayOrder>120</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emcTeamId" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>EMC Team</a:displayName>
+                        <a:displayOrder>121</a:displayOrder>
+                        <a:help>Business Team. Is used by Looker</a:help>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emcProjects" type="xsd:string" minOccurs="0" maxOccurs="30">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>EMC Projects</a:displayName>
+                        <a:displayOrder>122</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emcGroups" type="xsd:string" minOccurs="0" maxOccurs="30">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>EMC groups</a:displayName>
+                        <a:displayOrder>122</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emcRoles" type="xsd:string" minOccurs="0" maxOccurs="30">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>EMC roles</a:displayName>
+                        <a:displayOrder>123</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="hrmDepartments" type="xsd:string" minOccurs="0" maxOccurs="30">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>HRM Departments</a:displayName>
+                        <a:displayOrder>124</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="hrmTeam" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>HRM Team</a:displayName>
+                        <a:displayOrder>125</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="hrmProject" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>HRM Project</a:displayName>
+                        <a:displayOrder>126</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emcEmail" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>EMC email</a:displayName>
+                        <a:displayOrder>107</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emailWork" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>HRM work email</a:displayName>
+                        <a:displayOrder>107</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="awpEmail" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Agents WP email</a:displayName>
+                        <a:displayOrder>107</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="awpUserName" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Agents WP login</a:displayName>
+                        <a:displayOrder>107</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emcLogin" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>EMC login</a:displayName>
+                        <a:displayOrder>107</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="employeeID" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Employee ID</a:displayName>
+                        <a:displayOrder>100</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraLogin" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Jira login</a:displayName>
+                        <a:displayOrder>107</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="formerEmployee" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Former Employee</a:displayName>
+                        <a:displayOrder>251</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="transliteration" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Name transliteration</a:displayName>
+                        <a:displayOrder>100</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="employmentType" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Employment type</a:displayName>
+                        <a:displayOrder>101</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mantisID" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Mantis ID</a:displayName>
+                        <a:displayOrder>199</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mantisRealName" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Mantis Real Name</a:displayName>
+                        <a:displayOrder>100</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mantisLogin" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Mantis Login</a:displayName>
+                        <a:displayOrder>100</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mantisEmail" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Mantis Email</a:displayName>
+                        <a:displayOrder>100</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mantisAccess" type="xsd:string" minOccurs="0" maxOccurs="10">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Mantis Access Level</a:displayName>
+                        <a:displayOrder>500</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="unixUid" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:displayName>unixUid</a:displayName>
+                        <a:indexed>true</a:indexed>
+                        <a:help>This ID is used on Linux servers as UID [IAM-123]</a:help>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="unixGid" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:displayName>unixGid</a:displayName>
+                        <a:indexed>true</a:indexed>
+                        <a:help>This ID is used on Linux servers as GID [IAM-123]</a:help>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="sshPublicKey" type="xsd:base64Binary" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:displayName>sshPublicKey</a:displayName>
+                        <a:indexed>false</a:indexed>
+                        <a:help>SSH key for authentication on Unix servers. Upload your ~/.ssh/id_rsa.pub file here</a:help>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="userEmails" type="xsd:string" minOccurs="0" maxOccurs="100">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:displayName>User Emails</a:displayName>
+                        <a:indexed>true</a:indexed>
+                        <a:help>Business email addresses owned by the user</a:help>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraEmail" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:displayName>Jira Email</a:displayName>
+                        <a:indexed>false</a:indexed>
+                        <a:help>Email address from Jira</a:help>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emcEmails" type="xsd:string" minOccurs="0" maxOccurs="100">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:displayName>EMC Emails</a:displayName>
+                        <a:indexed>false</a:indexed>
+                        <a:help>Email addresses from EMC system</a:help>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="gsuiteEmails" type="xsd:string" minOccurs="0" maxOccurs="100">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:displayName>GSuite Emails</a:displayName>
+                        <a:indexed>false</a:indexed>
+                        <a:help>Email addresses from GSuite Apps</a:help>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element><xsd:element name="gsuiteAliases" type="xsd:string" minOccurs="0" maxOccurs="100">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <a:displayName>GSuite Alias</a:displayName>
+                    <a:indexed>false</a:indexed>
+                    <a:help>Email aliases from GSuite Apps</a:help>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+            <xsd:element name="showInitialPassword" type="xsd:boolean" default="false" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:displayName>Show initial password</a:displayName>
+                        <a:indexed>true</a:indexed>
+                        <a:help>Show initial password</a:help>
+                        <a:displayOrder>300</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="initialPassword" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:displayName>Initial Password</a:displayName>
+                        <a:indexed>false</a:indexed>
+                        <a:displayOrder>300</a:displayOrder>
+                        <a:help>User initial password that generated by IDM. If this is empty then the user has changed his initial password</a:help>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="initialPasswordProtected" type="t:ProtectedStringType" default="5555" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>initialPasswordProtected</a:displayName>
+                        <a:help>Protected user initial password that generated by IDM. If this is empty then the user has changed his initial password</a:help>
+                        <a:displayOrder>300</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="userMustChangePassword" type="xsd:boolean" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:displayName>User Must Change Last Password</a:displayName>
+                        <a:indexed>true</a:indexed>
+                        <a:help>User Must Change Password in IDM</a:help>
+                        <a:displayOrder>300</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="responsiblePerson" type="c:ObjectReferenceType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:displayName>Responsible person</a:displayName>
+                        <a:indexed>true</a:indexed>
+                        <a:help>Select the user who is responsible for the user creation and also has to initiate the user disabling if the user no longer needs access.</a:help>
+                        <a:objectReferenceTargetType>c:UserType</a:objectReferenceTargetType>
+                        <a:composite>true</a:composite>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emcDepartment" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>EMC Department</a:displayName>
+                        <a:displayOrder>121</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emcPosition" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>EMC Position</a:displayName>
+                        <a:displayOrder>121</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraDepartment" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Jira Department</a:displayName>
+                        <a:displayOrder>122</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraDivision" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Jira Division</a:displayName>
+                        <a:displayOrder>122</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jiraSubDivision" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Jira SubDivision</a:displayName>
+                        <a:displayOrder>122</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="lookerEmail" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>Looker email</a:displayName>
+                        <a:displayOrder>107</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

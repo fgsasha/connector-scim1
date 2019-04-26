@@ -6,6 +6,7 @@ services:
     volumes:
       - ./target/connector-scim-1.4.4.2-p2.jar:/opt/midpoint/var/icf-connectors/scim.jar
       - ./midpoint.log:/opt/midpoint/var/log/midpoint.log
+      - ./user-ext.xsd:/opt/midpoint/var/schema/user-ext.xsd
     ports:
       - "8080:8080"
       - 5005:5005

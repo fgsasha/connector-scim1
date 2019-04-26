@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
+    <role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" oid="0361d4fe-602e-4590-a96d-32608b4e0461" version="8">
+        <name>Workplace-Metarole-default</name>
+        <description>Workplace Metarole</description>
+        <metadata>
+            <requestTimestamp>2019-04-16T18:26:06.789+03:00</requestTimestamp>
+            <requestorRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+                <!-- o.nekriach-adm -->
+            </requestorRef>
+            <createTimestamp>2019-04-16T18:26:08.526+03:00</createTimestamp>
+            <creatorRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+                <!-- o.nekriach-adm -->
+            </creatorRef>
+            <createChannel>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#user</createChannel>
+            <modifyTimestamp>2019-04-17T10:35:50.313+03:00</modifyTimestamp>
+            <modifierRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+                <!-- o.nekriach-adm -->
+            </modifierRef>
+            <modifyChannel>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#user</modifyChannel>
+        </metadata>
+        <operationExecution id="1">
+            <timestamp>2019-04-16T18:26:15.065+03:00</timestamp>
+            <operation>
+                <objectDelta>
+                    <t:changeType>add</t:changeType>
+                    <t:objectType>c:RoleType</t:objectType>
+                </objectDelta>
+                <executionResult>
+                    <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
+                    <status>success</status>
+                    <token>1000000000000020462</token>
+                </executionResult>
+                <objectName>Workplace-Metarole-default</objectName>
+            </operation>
+            <status>success</status>
+            <initiatorRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+                <!-- o.nekriach-adm -->
+            </initiatorRef>
+            <channel>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#user</channel>
+        </operationExecution>
+        <operationExecution id="5">
+            <timestamp>2019-04-16T18:45:43.817+03:00</timestamp>
+            <operation>
+                <objectDelta>
+                    <t:changeType>modify</t:changeType>
+                    <t:objectType>c:RoleType</t:objectType>
+                </objectDelta>
+                <executionResult>
+                    <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
+                    <status>success</status>
+                    <token>1000000000000025567</token>
+                </executionResult>
+                <objectName>Workplace-Metarole-default</objectName>
+            </operation>
+            <status>success</status>
+            <initiatorRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+                <!-- o.nekriach-adm -->
+            </initiatorRef>
+            <taskRef oid="d0829562-c16f-4a88-a373-c9458239f412" relation="org:default" type="c:TaskType">
+                <!-- Add.members -->
+            </taskRef>
+        </operationExecution>
+        <operationExecution id="6">
+            <timestamp>2019-04-17T10:35:50.421+03:00</timestamp>
+            <operation>
+                <objectDelta>
+                    <t:changeType>modify</t:changeType>
+                    <t:objectType>c:RoleType</t:objectType>
+                </objectDelta>
+                <executionResult>
+                    <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
+                    <status>success</status>
+                    <token>1000000000000046513</token>
+                </executionResult>
+                <objectName>Workplace-Metarole-default</objectName>
+            </operation>
+            <status>success</status>
+            <initiatorRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+                <!-- o.nekriach-adm -->
+            </initiatorRef>
+            <channel>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#user</channel>
+        </operationExecution>
+        <activation>
+            <effectiveStatus>enabled</effectiveStatus>
+            <enableTimestamp>2019-04-16T18:26:08.504+03:00</enableTimestamp>
+        </activation>
+        <iteration>0</iteration>
+        <iterationToken/>
+        <displayName>Workplace-Metarole-default</displayName>
+        <inducement id="2">
+            <construction>
+                <resourceRef oid="a5f6a2f5-6b8e-4580-8ae6-e40cbf612e66" relation="org:default" type="c:ResourceType">
+                    <!-- WorkPlaceTest -->
+                </resourceRef>
+                <kind>account</kind>
+                <intent>default</intent>
+                <association id="3">
+                    <c:ref>ri:group</c:ref>
+                    <outbound>
+                        <strength>strong</strength>
+                        <expression>
+                            <associationFromLink xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="c:AssociationFromLinkExpressionEvaluatorType">
+                                <projectionDiscriminator xsi:type="c:ShadowDiscriminatorType">
+                                    <kind>entitlement</kind>
+                                    <intent>group</intent>
+                                </projectionDiscriminator>
+                            </associationFromLink>
+                        </expression>
+                    </outbound>
+                </association>
+            </construction>
+            <order>2</order>
+        </inducement>
+    </role>
+
+</objects>

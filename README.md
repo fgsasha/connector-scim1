@@ -14,7 +14,8 @@
 
 1. Open `connector.xml`
 2. Find `<connectorRef oid="YOUR_OID" relation="org:default" type="c:ConnectorType"/>` and replace with your connector OID (Midpoint -> Repository objects -> Connector)
-3. Go to `Midpoint -> Resources -> Workplace SCIM connector -> Edit configuration` and enter `Token` (Access token from FB API) 
+3. Import `roles.xml` and `tasks.xml` files via Midpoint
+4. Go to `Midpoint -> Resources -> Workplace SCIM connector -> Edit configuration` and enter `Token` (Access token from FB API) 
 
 ## Logs
 
@@ -35,9 +36,3 @@ Midpoint default credentials - administrator / 5ecr3t
 Test workplace - https://workplace.facebook.com/
 
 To get community ID visit https://graph.facebook.com/community?access_token={access_token}
-
-
-
-
-
-

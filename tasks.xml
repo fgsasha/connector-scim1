@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
+    <task xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" oid="1c5ec6f6-a90f-4c31-ac33-e70b6c63a9de" version="132">
+        <name>Workplace User recon</name>
+        <extension xmlns:mext="http://midpoint.evolveum.com/xml/ns/public/model/extension-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="c:ExtensionType">
+            <mext:kind>account</mext:kind>
+            <mext:intent>default</mext:intent>
+            <mext:objectclass>ri:AccountObjectClass</mext:objectclass>
+        </extension>
+        <metadata>
+            <requestTimestamp>2019-04-18T12:35:03.274+03:00</requestTimestamp>
+            <requestorRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+                <!-- o.nekriach-adm -->
+            </requestorRef>
+            <createTimestamp>2019-04-18T12:35:03.320+03:00</createTimestamp>
+            <creatorRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+                <!-- o.nekriach-adm -->
+            </creatorRef>
+            <createChannel>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#user</createChannel>
+        </metadata>
+        <operationExecution id="1">
+            <timestamp>2019-04-18T12:35:03.458+03:00</timestamp>
+            <operation>
+                <objectDelta>
+                    <t:changeType>add</t:changeType>
+                    <t:objectType>c:TaskType</t:objectType>
+                </objectDelta>
+                <executionResult>
+                    <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
+                    <status>success</status>
+                    <token>1000000000000005274</token>
+                </executionResult>
+                <objectName>Workplace User recon</objectName>
+            </operation>
+            <status>success</status>
+            <initiatorRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+                <!-- o.nekriach-adm -->
+            </initiatorRef>
+            <channel>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#user</channel>
+        </operationExecution>
+        <taskIdentifier>1555580103325-0-1</taskIdentifier>
+        <ownerRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+            <!-- o.nekriach-adm -->
+        </ownerRef>
+        <channel>http://midpoint.evolveum.com/xml/ns/public/provisioning/channels-3#reconciliation</channel>
+        <executionStatus>closed</executionStatus>
+        <category>Reconciliation</category>
+        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/synchronization/task/reconciliation/handler-3</handlerUri>
+        <result>
+            <operation>com.evolveum.midpoint.common.operation.reconciliation</operation>
+            <status>success</status>
+            <context>
+                <entry key="resourceOid">
+                    <paramValue>a5f6a2f5-6b8e-4580-8ae6-e40cbf612e66</paramValue>
+                </entry>
+            </context>
+            <token>1000000000000006752</token>
+            <partialResults>
+                <operation>com.evolveum.midpoint.common.operation.reconciliation.repoReconciliation</operation>
+                <status>success</status>
+                <params>
+                    <entry key="reconciled">
+                        <paramValue>true</paramValue>
+                    </entry>
+                </params>
+                <token>1000000000000006753</token>
+                <partialResults>
+                    <operation>com.evolveum.midpoint.repo.api.RepositoryService.searchObjects</operation>
+                    <status>success</status>
+                    <params>
+                        <entry key="type">
+                            <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.ShadowType</paramValue>
+                        </entry>
+                        <entry key="query">
+                            <paramValue>Q{AND(NOT(EQUAL: failedOperationType,),REF: resourceRef,PRV(oid=a5f6a2f5-6b8e-4580-8ae6-e40cbf612e66, targetType=null)),null paging</paramValue>
+                        </entry>
+                    </params>
+                    <token>1000000000000006754</token>
+                </partialResults>
+            </partialResults>
+            <partialResults>
+                <operation>com.evolveum.midpoint.common.operation.reconciliation.repoReconciliation.statistics</operation>
+                <status>success</status>
+                <token>1000000000000006755</token>
+                <message>Processing unfinished operations done. Out of 0 objects, 0 were processed successfully and processing of 0 resulted in failure. Total time spent: 0 ms. </message>
+            </partialResults>
+            <partialResults>
+                <operation>com.evolveum.midpoint.repo.api.RepositoryService.modifyObject</operation>
+                <status>success</status>
+                <params>
+                    <entry key="oid">
+                        <paramValue>1c5ec6f6-a90f-4c31-ac33-e70b6c63a9de</paramValue>
+                    </entry>
+                    <entry key="type">
+                        <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.TaskType</paramValue>
+                    </entry>
+                    <entry key="modifications">
+                        <paramValue>PropertyDelta( / {.../common/common-3}expectedTotal, REPLACE)</paramValue>
+                    </entry>
+                </params>
+                <token>1000000000000006756</token>
+            </partialResults>
+            <partialResults>
+                <operation>com.evolveum.midpoint.common.operation.reconciliation.resourceReconciliation</operation>
+                <status>success</status>
+                <token>1000000000000006757</token>
+                <message>Processed 293 account(s), got 0 error(s). Average time for one object: 128.686 ms (wall clock time average: 334.48465 ms).</message>
+                <partialResults>
+                    <operation>com.evolveum.midpoint.task.api.TaskManager.getTask</operation>
+                    <status>success</status>
+                    <minor>true</minor>
+                    <params>
+                        <entry key="options"/>
+                        <entry key="oid">
+                            <paramValue>1c5ec6f6-a90f-4c31-ac33-e70b6c63a9de</paramValue>
+                        </entry>
+                    </params>
+                    <context>
+                        <entry key="implementationClass">
+                            <paramValue>class com.evolveum.midpoint.task.quartzimpl.TaskManagerQuartzImpl</paramValue>
+                        </entry>
+                    </context>
+                    <token>1000000000000006758</token>
+                    <partialResults>
+                        <operation>com.evolveum.midpoint.repo.api.RepositoryService.getObject</operation>
+                        <status>success</status>
+                        <minor>true</minor>
+                        <params>
+                            <entry key="type">
+                                <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.TaskType</paramValue>
+                            </entry>
+                            <entry key="oid">
+                                <paramValue>1c5ec6f6-a90f-4c31-ac33-e70b6c63a9de</paramValue>
+                            </entry>
+                        </params>
+                        <token>1000000000000006759</token>
+                    </partialResults>
+                    <partialResults>
+                        <operation>com.evolveum.midpoint.task.api.TaskManager.createTaskInstance</operation>
+                        <status>success</status>
+                        <minor>true</minor>
+                        <params>
+                            <entry key="taskPrism">
+                                <paramValue>task:1c5ec6f6-a90f-4c31-ac33-e70b6c63a9de(Workplace User recon)</paramValue>
+                            </entry>
+                        </params>
+                        <token>1000000000000006760</token>
+                        <partialResults>
+                            <operation>com.evolveum.midpoint.repo.api.RepositoryService.getObject</operation>
+                            <status>success</status>
+                            <minor>true</minor>
+                            <params>
+                                <entry key="type">
+                                    <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.UserType</paramValue>
+                                </entry>
+                                <entry key="oid">
+                                    <paramValue>7fb2baf0-d89e-497d-b1ec-de5eee9a7d55</paramValue>
+                                </entry>
+                            </params>
+                            <token>1000000000000006761</token>
+                        </partialResults>
+                    </partialResults>
+                </partialResults>
+            </partialResults>
+            <partialResults>
+                <operation>com.evolveum.midpoint.common.operation.reconciliation.shadowReconciliation</operation>
+                <status>success</status>
+                <token>1000000000000006762</token>
+                <partialResults>
+                    <operation>com.evolveum.midpoint.task.api.TaskManager.getTask</operation>
+                    <status>success</status>
+                    <minor>true</minor>
+                    <params>
+                        <entry key="options"/>
+                        <entry key="oid">
+                            <paramValue>1c5ec6f6-a90f-4c31-ac33-e70b6c63a9de</paramValue>
+                        </entry>
+                    </params>
+                    <context>
+                        <entry key="implementationClass">
+                            <paramValue>class com.evolveum.midpoint.task.quartzimpl.TaskManagerQuartzImpl</paramValue>
+                        </entry>
+                    </context>
+                    <token>1000000000000006763</token>
+                    <partialResults>
+                        <operation>com.evolveum.midpoint.repo.api.RepositoryService.getObject</operation>
+                        <status>success</status>
+                        <minor>true</minor>
+                        <params>
+                            <entry key="type">
+                                <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.TaskType</paramValue>
+                            </entry>
+                            <entry key="oid">
+                                <paramValue>1c5ec6f6-a90f-4c31-ac33-e70b6c63a9de</paramValue>
+                            </entry>
+                        </params>
+                        <token>1000000000000006764</token>
+                    </partialResults>
+                    <partialResults>
+                        <operation>com.evolveum.midpoint.task.api.TaskManager.createTaskInstance</operation>
+                        <status>success</status>
+                        <minor>true</minor>
+                        <params>
+                            <entry key="taskPrism">
+                                <paramValue>task:1c5ec6f6-a90f-4c31-ac33-e70b6c63a9de(Workplace User recon)</paramValue>
+                            </entry>
+                        </params>
+                        <token>1000000000000006765</token>
+                        <partialResults>
+                            <operation>com.evolveum.midpoint.repo.api.RepositoryService.getObject</operation>
+                            <status>success</status>
+                            <minor>true</minor>
+                            <params>
+                                <entry key="type">
+                                    <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.UserType</paramValue>
+                                </entry>
+                                <entry key="oid">
+                                    <paramValue>7fb2baf0-d89e-497d-b1ec-de5eee9a7d55</paramValue>
+                                </entry>
+                            </params>
+                            <token>1000000000000006766</token>
+                        </partialResults>
+                    </partialResults>
+                </partialResults>
+                <partialResults>
+                    <operation>com.evolveum.midpoint.repo.api.RepositoryService.searchObjectsIterative</operation>
+                    <status>success</status>
+                    <params>
+                        <entry key="type">
+                            <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.ShadowType</paramValue>
+                        </entry>
+                        <entry key="query">
+                            <paramValue>Q{AND(OR(LESS-OR-EQUAL: fullSynchronizationTimestamp,PPV(XMLGregorianCalendarImpl:2019-04-25T11:43:55.895+03:00),EQUAL: fullSynchronizationTimestamp,),REF: resourceRef,PRV(oid=a5f6a2f5-6b8e-4580-8ae6-e40cbf612e66, targetType={.../common/common-3}ResourceType, targetName=WorkPlaceTest, relation={.../common/org-3}default),EQUAL: objectClass,PPV(QName:{...resource/instance-3}AccountObjectClass)),null paging</paramValue>
+                        </entry>
+                    </params>
+                    <token>1000000000000006767</token>
+                    <partialResults>
+                        <operation>com.evolveum.midpoint.repo.api.RepositoryService.searchObjects</operation>
+                        <status>success</status>
+                        <params>
+                            <entry key="type">
+                                <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.ShadowType</paramValue>
+                            </entry>
+                            <entry key="query">
+                                <paramValue>Q{AND(OR(LESS-OR-EQUAL: fullSynchronizationTimestamp,PPV(XMLGregorianCalendarImpl:2019-04-25T11:43:55.895+03:00),EQUAL: fullSynchronizationTimestamp,),REF: resourceRef,PRV(oid=a5f6a2f5-6b8e-4580-8ae6-e40cbf612e66, targetType={.../common/common-3}ResourceType, targetName=WorkPlaceTest, relation={.../common/org-3}default),EQUAL: objectClass,PPV(QName:{...resource/instance-3}AccountObjectClass)),PAGING: M: 50,, after OID: null,</paramValue>
+                            </entry>
+                        </params>
+                        <token>1000000000000006768</token>
+                    </partialResults>
+                </partialResults>
+            </partialResults>
+            <partialResults>
+                <operation>com.evolveum.midpoint.common.operation.reconciliation.shadowReconciliation.statistics</operation>
+                <status>success</status>
+                <token>1000000000000006769</token>
+                <message>Processed 0 shadow(s) in 3 ms.</message>
+            </partialResults>
+        </result>
+        <resultStatus>success</resultStatus>
+        <objectRef oid="a5f6a2f5-6b8e-4580-8ae6-e40cbf612e66" relation="org:default" type="c:ResourceType">
+            <!-- WorkPlaceTest -->
+        </objectRef>
+        <lastRunStartTimestamp>2019-04-25T11:43:55.672+03:00</lastRunStartTimestamp>
+        <lastRunFinishTimestamp>2019-04-25T11:45:34.085+03:00</lastRunFinishTimestamp>
+        <completionTimestamp>2019-04-25T11:45:34.141+03:00</completionTimestamp>
+        <progress>293</progress>
+        <operationStats>
+            <environmentalPerformanceInformation>
+                <provisioningStatistics>
+                    <entry>
+                        <resource>Gitlab test</resource>
+                        <objectClass>ri:AccountObjectClass</objectClass>
+                        <getSuccess>2</getSuccess>
+                        <getFailure>0</getFailure>
+                        <searchSuccess>0</searchSuccess>
+                        <searchFailure>0</searchFailure>
+                        <createSuccess>0</createSuccess>
+                        <createFailure>0</createFailure>
+                        <updateSuccess>2</updateSuccess>
+                        <updateFailure>0</updateFailure>
+                        <deleteSuccess>0</deleteSuccess>
+                        <deleteFailure>0</deleteFailure>
+                        <syncSuccess>0</syncSuccess>
+                        <syncFailure>0</syncFailure>
+                        <scriptSuccess>0</scriptSuccess>
+                        <scriptFailure>0</scriptFailure>
+                        <otherSuccess>0</otherSuccess>
+                        <otherFailure>0</otherFailure>
+                        <minTime>191</minTime>
+                        <maxTime>1214</maxTime>
+                        <totalTime>2075</totalTime>
+                    </entry>
+                    <entry>
+                        <resource>WorkPlaceTest</resource>
+                        <objectClass>ri:AccountObjectClass</objectClass>
+                        <getSuccess>0</getSuccess>
+                        <getFailure>0</getFailure>
+                        <searchSuccess>1</searchSuccess>
+                        <searchFailure>0</searchFailure>
+                        <createSuccess>0</createSuccess>
+                        <createFailure>0</createFailure>
+                        <updateSuccess>2</updateSuccess>
+                        <updateFailure>0</updateFailure>
+                        <deleteSuccess>0</deleteSuccess>
+                        <deleteFailure>0</deleteFailure>
+                        <syncSuccess>0</syncSuccess>
+                        <syncFailure>0</syncFailure>
+                        <scriptSuccess>0</scriptSuccess>
+                        <scriptFailure>0</scriptFailure>
+                        <otherSuccess>0</otherSuccess>
+                        <otherFailure>0</otherFailure>
+                        <minTime>0</minTime>
+                        <maxTime>3552</maxTime>
+                        <totalTime>56136</totalTime>
+                    </entry>
+                    <entry>
+                        <resource>Gitlab test</resource>
+                        <objectClass>ri:CustomProjectObjectClass</objectClass>
+                        <getSuccess>0</getSuccess>
+                        <getFailure>0</getFailure>
+                        <searchSuccess>8</searchSuccess>
+                        <searchFailure>0</searchFailure>
+                        <createSuccess>0</createSuccess>
+                        <createFailure>0</createFailure>
+                        <updateSuccess>0</updateSuccess>
+                        <updateFailure>0</updateFailure>
+                        <deleteSuccess>0</deleteSuccess>
+                        <deleteFailure>0</deleteFailure>
+                        <syncSuccess>0</syncSuccess>
+                        <syncFailure>0</syncFailure>
+                        <scriptSuccess>0</scriptSuccess>
+                        <scriptFailure>0</scriptFailure>
+                        <otherSuccess>0</otherSuccess>
+                        <otherFailure>0</otherFailure>
+                        <minTime>0</minTime>
+                        <maxTime>1862</maxTime>
+                        <totalTime>5426</totalTime>
+                    </entry>
+                    <entry>
+                        <resource>Gitlab test</resource>
+                        <objectClass>ri:GroupObjectClass</objectClass>
+                        <getSuccess>0</getSuccess>
+                        <getFailure>0</getFailure>
+                        <searchSuccess>10</searchSuccess>
+                        <searchFailure>0</searchFailure>
+                        <createSuccess>0</createSuccess>
+                        <createFailure>0</createFailure>
+                        <updateSuccess>0</updateSuccess>
+                        <updateFailure>0</updateFailure>
+                        <deleteSuccess>0</deleteSuccess>
+                        <deleteFailure>0</deleteFailure>
+                        <syncSuccess>0</syncSuccess>
+                        <syncFailure>0</syncFailure>
+                        <scriptSuccess>0</scriptSuccess>
+                        <scriptFailure>0</scriptFailure>
+                        <otherSuccess>0</otherSuccess>
+                        <otherFailure>0</otherFailure>
+                        <minTime>2</minTime>
+                        <maxTime>943</maxTime>
+                        <totalTime>4662</totalTime>
+                    </entry>
+                </provisioningStatistics>
+                <mappingsStatistics>
+                    <entry>
+                        <object>developer</object>
+                        <count>27</count>
+                        <minTime>3</minTime>
+                        <maxTime>226</maxTime>
+                        <totalTime>661</totalTime>
+                    </entry>
+                    <entry>
+                        <object>Gitlab test</object>
+                        <count>16</count>
+                        <minTime>0</minTime>
+                        <maxTime>40</maxTime>
+                        <totalTime>98</totalTime>
+                    </entry>
+                    <entry>
+                        <object>guest</object>
+                        <count>9</count>
+                        <minTime>3</minTime>
+                        <maxTime>19</maxTime>
+                        <totalTime>69</totalTime>
+                    </entry>
+                    <entry>
+                        <object>Metarole for Role</object>
+                        <count>12</count>
+                        <minTime>0</minTime>
+                        <maxTime>132</maxTime>
+                        <totalTime>137</totalTime>
+                    </entry>
+                    <entry>
+                        <object>WorkPlaceTest</object>
+                        <count>40</count>
+                        <minTime>0</minTime>
+                        <maxTime>1</maxTime>
+                        <totalTime>7</totalTime>
+                    </entry>
+                    <entry>
+                        <object>Workplace-Metarole-default</object>
+                        <count>6</count>
+                        <minTime>4</minTime>
+                        <maxTime>14</maxTime>
+                        <totalTime>46</totalTime>
+                    </entry>
+                </mappingsStatistics>
+                <notificationsStatistics/>
+                <lastMessageTimestamp>2019-04-25T11:45:33.950+03:00</lastMessageTimestamp>
+                <lastMessage>Successfully finished ICF_SEARCH of AccountObjectClass on WorkPlaceTest in 0 ms</lastMessage>
+            </environmentalPerformanceInformation>
+            <iterativeTaskInformation>
+                <lastSuccessObjectName>test.user46@test.dynatech.lv</lastSuccessObjectName>
+                <lastSuccessObjectDisplayName>test.user46@test.dynatech.lv (ACCOUNT - default - AccountObjectClass)</lastSuccessObjectDisplayName>
+                <lastSuccessObjectType>c:ShadowType</lastSuccessObjectType>
+                <lastSuccessObjectOid>aa653cf0-d167-478a-8363-d27b8d2b4db4</lastSuccessObjectOid>
+                <lastSuccessEndTimestamp>2019-04-25T11:45:33.950+03:00</lastSuccessEndTimestamp>
+                <lastSuccessDuration>1394</lastSuccessDuration>
+                <totalSuccessDuration>37703</totalSuccessDuration>
+                <totalSuccessCount>293</totalSuccessCount>
+                <lastFailureDuration>0</lastFailureDuration>
+                <totalFailureDuration>0</totalFailureDuration>
+                <totalFailureCount>0</totalFailureCount>
+            </iterativeTaskInformation>
+            <synchronizationInformation>
+                <countProtected>0</countProtected>
+                <countNoSynchronizationPolicy>0</countNoSynchronizationPolicy>
+                <countSynchronizationDisabled>0</countSynchronizationDisabled>
+                <countNotApplicableForTask>0</countNotApplicableForTask>
+                <countDeleted>0</countDeleted>
+                <countDisputed>0</countDisputed>
+                <countLinked>4</countLinked>
+                <countUnlinked>0</countUnlinked>
+                <countUnmatched>289</countUnmatched>
+                <countProtectedAfter>0</countProtectedAfter>
+                <countNoSynchronizationPolicyAfter>0</countNoSynchronizationPolicyAfter>
+                <countSynchronizationDisabledAfter>0</countSynchronizationDisabledAfter>
+                <countNotApplicableForTaskAfter>0</countNotApplicableForTaskAfter>
+                <countDeletedAfter>0</countDeletedAfter>
+                <countDisputedAfter>0</countDisputedAfter>
+                <countLinkedAfter>4</countLinkedAfter>
+                <countUnlinkedAfter>0</countUnlinkedAfter>
+                <countUnmatchedAfter>289</countUnmatchedAfter>
+            </synchronizationInformation>
+            <actionsExecutedInformation>
+                <objectActionsEntry>
+                    <objectType>c:ShadowType</objectType>
+                    <operation>modify</operation>
+                    <channel>http://midpoint.evolveum.com/xml/ns/public/provisioning/channels-3#reconciliation</channel>
+                    <totalSuccessCount>297</totalSuccessCount>
+                    <lastSuccessObjectName>test.user46@test.dynatech.lv</lastSuccessObjectName>
+                    <lastSuccessObjectDisplayName>Shadow test.user46@test.dynatech.lv (ACCOUNT - default - AccountObjectClass)</lastSuccessObjectDisplayName>
+                    <lastSuccessObjectOid>aa653cf0-d167-478a-8363-d27b8d2b4db4</lastSuccessObjectOid>
+                    <lastSuccessTimestamp>2019-04-25T11:45:33.719+03:00</lastSuccessTimestamp>
+                    <totalFailureCount>0</totalFailureCount>
+                </objectActionsEntry>
+                <objectActionsEntry>
+                    <objectType>c:UserType</objectType>
+                    <operation>modify</operation>
+                    <channel>http://midpoint.evolveum.com/xml/ns/public/provisioning/channels-3#reconciliation</channel>
+                    <totalSuccessCount>4</totalSuccessCount>
+                    <lastSuccessObjectName>test.user46</lastSuccessObjectName>
+                    <lastSuccessObjectDisplayName>User Test User46 (test.user46)</lastSuccessObjectDisplayName>
+                    <lastSuccessObjectOid>75180624-ac09-441e-a1e7-81359bafe951</lastSuccessObjectOid>
+                    <lastSuccessTimestamp>2019-04-25T11:45:32.771+03:00</lastSuccessTimestamp>
+                    <totalFailureCount>0</totalFailureCount>
+                </objectActionsEntry>
+                <resultingObjectActionsEntry>
+                    <objectType>c:ShadowType</objectType>
+                    <operation>modify</operation>
+                    <channel>http://midpoint.evolveum.com/xml/ns/public/provisioning/channels-3#reconciliation</channel>
+                    <totalSuccessCount>295</totalSuccessCount>
+                    <lastSuccessObjectName>test.user46@test.dynatech.lv</lastSuccessObjectName>
+                    <lastSuccessObjectDisplayName>Shadow test.user46@test.dynatech.lv (ACCOUNT - default - AccountObjectClass)</lastSuccessObjectDisplayName>
+                    <lastSuccessObjectOid>aa653cf0-d167-478a-8363-d27b8d2b4db4</lastSuccessObjectOid>
+                    <lastSuccessTimestamp>2019-04-25T11:45:33.719+03:00</lastSuccessTimestamp>
+                    <totalFailureCount>0</totalFailureCount>
+                </resultingObjectActionsEntry>
+                <resultingObjectActionsEntry>
+                    <objectType>c:UserType</objectType>
+                    <operation>modify</operation>
+                    <channel>http://midpoint.evolveum.com/xml/ns/public/provisioning/channels-3#reconciliation</channel>
+                    <totalSuccessCount>4</totalSuccessCount>
+                    <lastSuccessObjectName>test.user46</lastSuccessObjectName>
+                    <lastSuccessObjectDisplayName>User Test User46 (test.user46)</lastSuccessObjectDisplayName>
+                    <lastSuccessObjectOid>75180624-ac09-441e-a1e7-81359bafe951</lastSuccessObjectOid>
+                    <lastSuccessTimestamp>2019-04-25T11:45:32.771+03:00</lastSuccessTimestamp>
+                    <totalFailureCount>0</totalFailureCount>
+                </resultingObjectActionsEntry>
+            </actionsExecutedInformation>
+            <timestamp>2019-04-25T11:45:34.086+03:00</timestamp>
+            <liveInformation>false</liveInformation>
+        </operationStats>
+        <workState>
+            <bucket id="2">
+                <sequentialNumber>1</sequentialNumber>
+                <state>complete</state>
+            </bucket>
+            <numberOfBuckets>1</numberOfBuckets>
+            <allWorkComplete>true</allWorkComplete>
+        </workState>
+        <recurrence>single</recurrence>
+        <binding>loose</binding>
+        <schedule>
+            <misfireAction>executeImmediately</misfireAction>
+        </schedule>
+        <threadStopAction>restart</threadStopAction>
+    </task>
+
+    <task xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" oid="a55bcf43-f243-49ee-ac15-e522f69a679d" version="367">
+        <name>Workplace Group recon</name>
+        <extension xmlns:mext="http://midpoint.evolveum.com/xml/ns/public/model/extension-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="c:ExtensionType">
+            <mext:kind>entitlement</mext:kind>
+            <mext:intent>group</mext:intent>
+            <mext:objectclass>ri:GroupObjectClass</mext:objectclass>
+        </extension>
+        <metadata>
+            <requestTimestamp>2019-04-18T16:58:52.487+03:00</requestTimestamp>
+            <requestorRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+                <!-- o.nekriach-adm -->
+            </requestorRef>
+            <createTimestamp>2019-04-18T16:58:52.651+03:00</createTimestamp>
+            <creatorRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+                <!-- o.nekriach-adm -->
+            </creatorRef>
+            <createChannel>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#user</createChannel>
+        </metadata>
+        <operationExecution id="1">
+            <timestamp>2019-04-18T16:58:52.733+03:00</timestamp>
+            <operation>
+                <objectDelta>
+                    <t:changeType>add</t:changeType>
+                    <t:objectType>c:TaskType</t:objectType>
+                </objectDelta>
+                <executionResult>
+                    <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
+                    <status>success</status>
+                    <token>1000000000000039990</token>
+                </executionResult>
+                <objectName>Workplace Group recon</objectName>
+            </operation>
+            <status>success</status>
+            <initiatorRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+                <!-- o.nekriach-adm -->
+            </initiatorRef>
+            <channel>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#user</channel>
+        </operationExecution>
+        <taskIdentifier>1555595932655-0-1</taskIdentifier>
+        <ownerRef oid="7fb2baf0-d89e-497d-b1ec-de5eee9a7d55" relation="org:default" type="c:UserType">
+            <!-- o.nekriach-adm -->
+        </ownerRef>
+        <channel>http://midpoint.evolveum.com/xml/ns/public/provisioning/channels-3#reconciliation</channel>
+        <executionStatus>closed</executionStatus>
+        <category>Reconciliation</category>
+        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/synchronization/task/reconciliation/handler-3</handlerUri>
+        <result>
+            <operation>com.evolveum.midpoint.common.operation.reconciliation</operation>
+            <status>success</status>
+            <context>
+                <entry key="resourceOid">
+                    <paramValue>a5f6a2f5-6b8e-4580-8ae6-e40cbf612e66</paramValue>
+                </entry>
+            </context>
+            <token>1000000000000005160</token>
+            <partialResults>
+                <operation>com.evolveum.midpoint.common.operation.reconciliation.repoReconciliation</operation>
+                <status>success</status>
+                <params>
+                    <entry key="reconciled">
+                        <paramValue>true</paramValue>
+                    </entry>
+                </params>
+                <token>1000000000000005161</token>
+                <partialResults>
+                    <operation>com.evolveum.midpoint.repo.api.RepositoryService.searchObjects</operation>
+                    <status>success</status>
+                    <params>
+                        <entry key="type">
+                            <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.ShadowType</paramValue>
+                        </entry>
+                        <entry key="query">
+                            <paramValue>Q{AND(NOT(EQUAL: failedOperationType,),REF: resourceRef,PRV(oid=a5f6a2f5-6b8e-4580-8ae6-e40cbf612e66, targetType=null)),null paging</paramValue>
+                        </entry>
+                    </params>
+                    <token>1000000000000005162</token>
+                </partialResults>
+            </partialResults>
+            <partialResults>
+                <operation>com.evolveum.midpoint.common.operation.reconciliation.repoReconciliation.statistics</operation>
+                <status>success</status>
+                <token>1000000000000005163</token>
+                <message>Processing unfinished operations done. Out of 0 objects, 0 were processed successfully and processing of 0 resulted in failure. Total time spent: 0 ms. </message>
+            </partialResults>
+            <partialResults>
+                <operation>com.evolveum.midpoint.repo.api.RepositoryService.modifyObject</operation>
+                <status>success</status>
+                <params>
+                    <entry key="oid">
+                        <paramValue>a55bcf43-f243-49ee-ac15-e522f69a679d</paramValue>
+                    </entry>
+                    <entry key="type">
+                        <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.TaskType</paramValue>
+                    </entry>
+                    <entry key="modifications">
+                        <paramValue>PropertyDelta( / {.../common/common-3}expectedTotal, REPLACE)</paramValue>
+                    </entry>
+                </params>
+                <token>1000000000000005164</token>
+            </partialResults>
+            <partialResults>
+                <operation>com.evolveum.midpoint.common.operation.reconciliation.resourceReconciliation</operation>
+                <status>success</status>
+                <token>1000000000000005165</token>
+                <message>Processed 73 account(s), got 0 error(s). Average time for one object: 290.82193 ms (wall clock time average: 323.39725 ms).</message>
+                <partialResults>
+                    <operation>com.evolveum.midpoint.task.api.TaskManager.getTask</operation>
+                    <status>success</status>
+                    <minor>true</minor>
+                    <params>
+                        <entry key="options"/>
+                        <entry key="oid">
+                            <paramValue>a55bcf43-f243-49ee-ac15-e522f69a679d</paramValue>
+                        </entry>
+                    </params>
+                    <context>
+                        <entry key="implementationClass">
+                            <paramValue>class com.evolveum.midpoint.task.quartzimpl.TaskManagerQuartzImpl</paramValue>
+                        </entry>
+                    </context>
+                    <token>1000000000000005166</token>
+                    <partialResults>
+                        <operation>com.evolveum.midpoint.repo.api.RepositoryService.getObject</operation>
+                        <status>success</status>
+                        <minor>true</minor>
+                        <params>
+                            <entry key="type">
+                                <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.TaskType</paramValue>
+                            </entry>
+                            <entry key="oid">
+                                <paramValue>a55bcf43-f243-49ee-ac15-e522f69a679d</paramValue>
+                            </entry>
+                        </params>
+                        <token>1000000000000005167</token>
+                    </partialResults>
+                    <partialResults>
+                        <operation>com.evolveum.midpoint.task.api.TaskManager.createTaskInstance</operation>
+                        <status>success</status>
+                        <minor>true</minor>
+                        <params>
+                            <entry key="taskPrism">
+                                <paramValue>task:a55bcf43-f243-49ee-ac15-e522f69a679d(Workplace Group recon)</paramValue>
+                            </entry>
+                        </params>
+                        <token>1000000000000005168</token>
+                        <partialResults>
+                            <operation>com.evolveum.midpoint.repo.api.RepositoryService.getObject</operation>
+                            <status>success</status>
+                            <minor>true</minor>
+                            <params>
+                                <entry key="type">
+                                    <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.UserType</paramValue>
+                                </entry>
+                                <entry key="oid">
+                                    <paramValue>7fb2baf0-d89e-497d-b1ec-de5eee9a7d55</paramValue>
+                                </entry>
+                            </params>
+                            <token>1000000000000005169</token>
+                        </partialResults>
+                    </partialResults>
+                </partialResults>
+            </partialResults>
+            <partialResults>
+                <operation>com.evolveum.midpoint.common.operation.reconciliation.shadowReconciliation</operation>
+                <status>success</status>
+                <token>1000000000000005170</token>
+                <partialResults>
+                    <operation>com.evolveum.midpoint.task.api.TaskManager.getTask</operation>
+                    <status>success</status>
+                    <minor>true</minor>
+                    <params>
+                        <entry key="options"/>
+                        <entry key="oid">
+                            <paramValue>a55bcf43-f243-49ee-ac15-e522f69a679d</paramValue>
+                        </entry>
+                    </params>
+                    <context>
+                        <entry key="implementationClass">
+                            <paramValue>class com.evolveum.midpoint.task.quartzimpl.TaskManagerQuartzImpl</paramValue>
+                        </entry>
+                    </context>
+                    <token>1000000000000005171</token>
+                    <partialResults>
+                        <operation>com.evolveum.midpoint.repo.api.RepositoryService.getObject</operation>
+                        <status>success</status>
+                        <minor>true</minor>
+                        <params>
+                            <entry key="type">
+                                <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.TaskType</paramValue>
+                            </entry>
+                            <entry key="oid">
+                                <paramValue>a55bcf43-f243-49ee-ac15-e522f69a679d</paramValue>
+                            </entry>
+                        </params>
+                        <token>1000000000000005172</token>
+                    </partialResults>
+                    <partialResults>
+                        <operation>com.evolveum.midpoint.task.api.TaskManager.createTaskInstance</operation>
+                        <status>success</status>
+                        <minor>true</minor>
+                        <params>
+                            <entry key="taskPrism">
+                                <paramValue>task:a55bcf43-f243-49ee-ac15-e522f69a679d(Workplace Group recon)</paramValue>
+                            </entry>
+                        </params>
+                        <token>1000000000000005173</token>
+                        <partialResults>
+                            <operation>com.evolveum.midpoint.repo.api.RepositoryService.getObject</operation>
+                            <status>success</status>
+                            <minor>true</minor>
+                            <params>
+                                <entry key="type">
+                                    <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.UserType</paramValue>
+                                </entry>
+                                <entry key="oid">
+                                    <paramValue>7fb2baf0-d89e-497d-b1ec-de5eee9a7d55</paramValue>
+                                </entry>
+                            </params>
+                            <token>1000000000000005174</token>
+                        </partialResults>
+                    </partialResults>
+                </partialResults>
+                <partialResults>
+                    <operation>com.evolveum.midpoint.repo.api.RepositoryService.searchObjectsIterative</operation>
+                    <status>success</status>
+                    <params>
+                        <entry key="type">
+                            <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.ShadowType</paramValue>
+                        </entry>
+                        <entry key="query">
+                            <paramValue>Q{AND(OR(LESS-OR-EQUAL: fullSynchronizationTimestamp,PPV(XMLGregorianCalendarImpl:2019-04-25T11:41:26.094+03:00),EQUAL: fullSynchronizationTimestamp,),REF: resourceRef,PRV(oid=a5f6a2f5-6b8e-4580-8ae6-e40cbf612e66, targetType={.../common/common-3}ResourceType, targetName=WorkPlaceTest, relation={.../common/org-3}default),EQUAL: objectClass,PPV(QName:{...resource/instance-3}GroupObjectClass)),null paging</paramValue>
+                        </entry>
+                    </params>
+                    <token>1000000000000005175</token>
+                    <partialResults>
+                        <operation>com.evolveum.midpoint.repo.api.RepositoryService.searchObjects</operation>
+                        <status>success</status>
+                        <params>
+                            <entry key="type">
+                                <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.ShadowType</paramValue>
+                            </entry>
+                            <entry key="query">
+                                <paramValue>Q{AND(OR(LESS-OR-EQUAL: fullSynchronizationTimestamp,PPV(XMLGregorianCalendarImpl:2019-04-25T11:41:26.094+03:00),EQUAL: fullSynchronizationTimestamp,),REF: resourceRef,PRV(oid=a5f6a2f5-6b8e-4580-8ae6-e40cbf612e66, targetType={.../common/common-3}ResourceType, targetName=WorkPlaceTest, relation={.../common/org-3}default),EQUAL: objectClass,PPV(QName:{...resource/instance-3}GroupObjectClass)),PAGING: M: 50,, after OID: null,</paramValue>
+                            </entry>
+                        </params>
+                        <token>1000000000000005176</token>
+                    </partialResults>
+                    <partialResults>
+                        <operation>com.evolveum.midpoint.repo.api.RepositoryService.searchObjects</operation>
+                        <status>success</status>
+                        <params>
+                            <entry key="type">
+                                <paramValue>com.evolveum.midpoint.xml.ns._public.common.common_3.ShadowType</paramValue>
+                            </entry>
+                            <entry key="query">
+                                <paramValue>Q{AND(OR(LESS-OR-EQUAL: fullSynchronizationTimestamp,PPV(XMLGregorianCalendarImpl:2019-04-25T11:41:26.094+03:00),EQUAL: fullSynchronizationTimestamp,),REF: resourceRef,PRV(oid=a5f6a2f5-6b8e-4580-8ae6-e40cbf612e66, targetType={.../common/common-3}ResourceType, targetName=WorkPlaceTest, relation={.../common/org-3}default),EQUAL: objectClass,PPV(QName:{...resource/instance-3}GroupObjectClass)),PAGING: M: 50,, after OID: 846d31fd-05c1-4011-adfc-3686ed44c774,</paramValue>
+                            </entry>
+                        </params>
+                        <token>1000000000000005177</token>
+                    </partialResults>
+                </partialResults>
+            </partialResults>
+            <partialResults>
+                <operation>com.evolveum.midpoint.common.operation.reconciliation.shadowReconciliation.statistics</operation>
+                <status>success</status>
+                <token>1000000000000005178</token>
+                <message>Processed 1 shadow(s) in 664 ms.</message>
+            </partialResults>
+        </result>
+        <resultStatus>success</resultStatus>
+        <objectRef oid="a5f6a2f5-6b8e-4580-8ae6-e40cbf612e66" relation="org:default" type="c:ResourceType">
+            <!-- WorkPlaceTest -->
+        </objectRef>
+        <lastRunStartTimestamp>2019-04-25T11:41:25.783+03:00</lastRunStartTimestamp>
+        <lastRunFinishTimestamp>2019-04-25T11:41:50.906+03:00</lastRunFinishTimestamp>
+        <completionTimestamp>2019-04-25T11:41:50.951+03:00</completionTimestamp>
+        <progress>73</progress>
+        <operationStats>
+            <environmentalPerformanceInformation>
+                <provisioningStatistics>
+                    <entry>
+                        <resource>WorkPlaceTest</resource>
+                        <objectClass>ri:GroupObjectClass</objectClass>
+                        <getSuccess>1</getSuccess>
+                        <getFailure>0</getFailure>
+                        <searchSuccess>1</searchSuccess>
+                        <searchFailure>0</searchFailure>
+                        <createSuccess>0</createSuccess>
+                        <createFailure>0</createFailure>
+                        <updateSuccess>0</updateSuccess>
+                        <updateFailure>0</updateFailure>
+                        <deleteSuccess>0</deleteSuccess>
+                        <deleteFailure>0</deleteFailure>
+                        <syncSuccess>0</syncSuccess>
+                        <syncFailure>0</syncFailure>
+                        <scriptSuccess>0</scriptSuccess>
+                        <scriptFailure>0</scriptFailure>
+                        <otherSuccess>0</otherSuccess>
+                        <otherFailure>0</otherFailure>
+                        <minTime>0</minTime>
+                        <maxTime>1567</maxTime>
+                        <totalTime>1862</totalTime>
+                    </entry>
+                </provisioningStatistics>
+                <mappingsStatistics>
+                    <entry>
+                        <object>WorkPlaceTest</object>
+                        <count>730</count>
+                        <minTime>0</minTime>
+                        <maxTime>153</maxTime>
+                        <totalTime>631</totalTime>
+                    </entry>
+                </mappingsStatistics>
+                <notificationsStatistics/>
+                <lastMessageTimestamp>2019-04-25T11:41:50.075+03:00</lastMessageTimestamp>
+                <lastMessage>Successfully finished ICF_GET of GroupObjectClass 2392470957493952 on WorkPlaceTest in 277 ms</lastMessage>
+            </environmentalPerformanceInformation>
+            <iterativeTaskInformation>
+                <lastSuccessObjectName>Test Dynatech</lastSuccessObjectName>
+                <lastSuccessObjectDisplayName>Test Dynatech (ENTITLEMENT - group - GroupObjectClass)</lastSuccessObjectDisplayName>
+                <lastSuccessObjectType>c:ShadowType</lastSuccessObjectType>
+                <lastSuccessObjectOid>846d31fd-05c1-4011-adfc-3686ed44c774</lastSuccessObjectOid>
+                <lastSuccessEndTimestamp>2019-04-25T11:41:50.076+03:00</lastSuccessEndTimestamp>
+                <lastSuccessDuration>283</lastSuccessDuration>
+                <totalSuccessDuration>21512</totalSuccessDuration>
+                <totalSuccessCount>74</totalSuccessCount>
+                <lastFailureDuration>0</lastFailureDuration>
+                <totalFailureDuration>0</totalFailureDuration>
+                <totalFailureCount>0</totalFailureCount>
+            </iterativeTaskInformation>
+            <synchronizationInformation>
+                <countProtected>0</countProtected>
+                <countNoSynchronizationPolicy>0</countNoSynchronizationPolicy>
+                <countSynchronizationDisabled>0</countSynchronizationDisabled>
+                <countNotApplicableForTask>0</countNotApplicableForTask>
+                <countDeleted>0</countDeleted>
+                <countDisputed>0</countDisputed>
+                <countLinked>73</countLinked>
+                <countUnlinked>0</countUnlinked>
+                <countUnmatched>0</countUnmatched>
+                <countProtectedAfter>0</countProtectedAfter>
+                <countNoSynchronizationPolicyAfter>0</countNoSynchronizationPolicyAfter>
+                <countSynchronizationDisabledAfter>0</countSynchronizationDisabledAfter>
+                <countNotApplicableForTaskAfter>0</countNotApplicableForTaskAfter>
+                <countDeletedAfter>0</countDeletedAfter>
+                <countDisputedAfter>0</countDisputedAfter>
+                <countLinkedAfter>73</countLinkedAfter>
+                <countUnlinkedAfter>0</countUnlinkedAfter>
+                <countUnmatchedAfter>0</countUnmatchedAfter>
+            </synchronizationInformation>
+            <actionsExecutedInformation>
+                <objectActionsEntry>
+                    <objectType>c:ShadowType</objectType>
+                    <operation>modify</operation>
+                    <channel>http://midpoint.evolveum.com/xml/ns/public/provisioning/channels-3#reconciliation</channel>
+                    <totalSuccessCount>73</totalSuccessCount>
+                    <lastSuccessObjectName>General</lastSuccessObjectName>
+                    <lastSuccessObjectDisplayName>Shadow General (ENTITLEMENT - group - GroupObjectClass)</lastSuccessObjectDisplayName>
+                    <lastSuccessObjectOid>6af80626-52e3-45df-9374-b97903c8e5b4</lastSuccessObjectOid>
+                    <lastSuccessTimestamp>2019-04-25T11:41:49.489+03:00</lastSuccessTimestamp>
+                    <totalFailureCount>0</totalFailureCount>
+                </objectActionsEntry>
+                <resultingObjectActionsEntry>
+                    <objectType>c:ShadowType</objectType>
+                    <operation>modify</operation>
+                    <channel>http://midpoint.evolveum.com/xml/ns/public/provisioning/channels-3#reconciliation</channel>
+                    <totalSuccessCount>73</totalSuccessCount>
+                    <lastSuccessObjectName>General</lastSuccessObjectName>
+                    <lastSuccessObjectDisplayName>Shadow General (ENTITLEMENT - group - GroupObjectClass)</lastSuccessObjectDisplayName>
+                    <lastSuccessObjectOid>6af80626-52e3-45df-9374-b97903c8e5b4</lastSuccessObjectOid>
+                    <lastSuccessTimestamp>2019-04-25T11:41:49.489+03:00</lastSuccessTimestamp>
+                    <totalFailureCount>0</totalFailureCount>
+                </resultingObjectActionsEntry>
+            </actionsExecutedInformation>
+            <timestamp>2019-04-25T11:41:50.906+03:00</timestamp>
+            <liveInformation>false</liveInformation>
+        </operationStats>
+        <workState>
+            <bucket id="2">
+                <sequentialNumber>1</sequentialNumber>
+                <state>complete</state>
+            </bucket>
+            <numberOfBuckets>1</numberOfBuckets>
+            <allWorkComplete>true</allWorkComplete>
+        </workState>
+        <recurrence>single</recurrence>
+        <binding>loose</binding>
+        <schedule>
+            <misfireAction>executeImmediately</misfireAction>
+        </schedule>
+        <threadStopAction>restart</threadStopAction>
+    </task>
+
+</objects>
