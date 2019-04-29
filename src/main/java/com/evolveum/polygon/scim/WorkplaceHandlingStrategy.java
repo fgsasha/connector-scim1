@@ -626,7 +626,33 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 			JSONObject jsonObject = objectTranslator.translateSetToJson(attributes, null, resourceEndPoint);
 			//TODO check and add missing attributes to attributeSet from resource
 			JSONObject jsonUserOnResource = getCurrentUserData(uri);
-			jsonObject=getMissingMandatoryAttributes(jsonObject, jsonUserOnResource,getMandatoryAttributes());
+
+			// When changing primary phone number, phone number should be added to updated JSON
+			for(Attribute attr : attributes){
+				if(attr.getName().equals("phoneNumbers.work.primary") && jsonObject.has("phoneNumbers") && jsonUserOnResource.has("phoneNumbers")){
+					JSONArray phoneNumbers = jsonObject.getJSONArray("phoneNumbers");
+					JSONArray phoneNumbersResource = jsonUserOnResource.getJSONArray("phoneNumbers");
+					JSONArray phoneNumbersNew = new JSONArray();
+
+					for (int i = 0; i < phoneNumbers.length(); i++) {
+						JSONObject phone = phoneNumbers.getJSONObject(i);
+						JSONObject phoneNew = phone;
+						if(phoneNumbersResource.isNull(i)){
+							continue;
+						}
+						JSONObject phoneResource = phoneNumbersResource.getJSONObject(i);
+
+						if(!phone.has("value") && phoneResource.has("value")){
+							phoneNew.put("value", phoneResource.getString("value"));
+						}
+
+						phoneNumbersNew.put(phoneNew);
+					}
+					jsonObject.put("phoneNumbers", phoneNumbersNew);
+				}
+			}
+
+			jsonObject=getMissingMandatoryAttributes(jsonObject, jsonUserOnResource, getMandatoryAttributes());
                         
 			LOGGER.info("The update json object: {0}", jsonObject);
 			jsonObject=jsonObject.append(SCHEMAS, SCHEMAVALUE);
@@ -2303,7 +2329,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
                     Object attributeValue = jsonUserOnResource.get(attribute);
                     returnJson.put(attribute, attributeValue);
                 } else {
-                    LOGGER.info("Mandatory attribute is missing in user Profile JSON output: {0}",attribute);
+                    LOGGER.error("Mandatory attribute is missing in user Profile JSON output: {0}",attribute);
                     throw new Exception("Mandatory attribute is missing in user Profile JSON output: " + attribute);
                 }
             }
