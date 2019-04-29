@@ -434,7 +434,8 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 											if (minResourceJson.has(USERNAME)) {
 
-												minResourceJson = populateUserJsonWithGroup(minResourceJson);
+												minResourceJson = populateUserJsonWithGroup(normalizeJSON(minResourceJson));
+
 												ConnectorObject connectorObject = buildConnectorObject(minResourceJson,
 														resourceEndPoint);
 
