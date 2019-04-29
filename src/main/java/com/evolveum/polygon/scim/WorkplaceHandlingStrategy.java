@@ -1992,8 +1992,13 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 		return null;
 	}
 
-    private JSONObject getUserGroups(String uid){
+    private JSONObject getUserGroupsPage(String uid, String page){
 		String uri = GRAPH_API_BASE_URI + SLASH + uid + SLASH + "groups";
+
+		if(!page.equals("")){
+			uri = uri + "?after=" + page;
+		}
+
 		LOGGER.info("getUserGroups: {0}", uri);
 		HttpGet httpGet = buildHttpGet(uri);
 
@@ -2005,6 +2010,28 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 		LOGGER.error("Failed getUserGroups: {0}", uri);
 		return null;
+	}
+
+	private JSONObject getUserGroups(String uid){
+		JSONObject result = getUserGroupsPage(uid, "");
+		JSONArray resultData = result.getJSONArray("data");
+
+		String nextPage = getNextPage(result);
+		while(nextPage != null){
+			result = getUserGroupsPage(uid, nextPage);
+			nextPage = getNextPage(result);
+			JSONArray partialData = result.getJSONArray("data");
+
+			for (int i = 0; i < partialData.length(); i++) {
+				JSONObject group = partialData.getJSONObject(i);
+				resultData.put(group);
+			}
+
+		}
+
+		result.put("data", resultData);
+
+		return result;
 	}
 
 	private boolean addUserToGroup(String uid, String gid){
