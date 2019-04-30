@@ -2064,11 +2064,10 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 	private boolean deleteUserFromGroup(String uid, String gid){
 		int groupMembers = getGroupMembersCount(gid);
-		if(groupMembers < 2){
-			LOGGER.error("Can not delete User {0} from Group {1}, group has {2} members", uid, gid, groupMembers);
-			throw new ConnectorException("Can not delete user from a group, it is last member");
+		if(groupMembers <= 1){
+			LOGGER.info("User {0} in Group {1} is last member, adding admin to the group", uid, gid, groupMembers);
+			addUserToGroup(firstAdminId, gid);
 		}
-
 
 		String uri = GRAPH_API_BASE_URI + SLASH + gid + SLASH + "members" + SLASH + uid;
 		HttpDelete httpDelete = buildHttpDelete(uri);
