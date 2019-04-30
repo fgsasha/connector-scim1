@@ -1486,8 +1486,12 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 	@Override
 	public Set<Attribute> addAttributesToInject(Set<Attribute> injectedAttributeSet) {
-                Attribute schemaAttribute = AttributeBuilder.build("schemas.default.blank", SCHEMAVALUE);
+		Attribute schemaAttribute = AttributeBuilder.build("schemas.default.blank", SCHEMAVALUE);
+		Attribute enterpriceSchemaAttribute = AttributeBuilder.build("schemas.default.blank", ENTERPRISEVALUE);
+
 		injectedAttributeSet.add(schemaAttribute);
+		injectedAttributeSet.add(enterpriceSchemaAttribute);
+
 		return injectedAttributeSet;
 	}
 
