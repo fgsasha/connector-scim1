@@ -95,8 +95,6 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 	private static HttpClient httpClient;
 	private static Header authHeader;
-	private static String communityId;
-	private static String firstAdminId;
 
 	private static final Log LOGGER = Log.getLog(WorkplaceHandlingStrategy.class);
 	private static final String CANONICALVALUES = "canonicalValues";
@@ -153,16 +151,6 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 		authHeader = accessManager.getAuthHeader();
 		if (authHeader == null) {
 			throw new ConnectorException("The data needed for authorization of request to the provider was not found.");
-		}
-		communityId = getCommunityId();
-
-		if(communityId == null){
-			throw new ConnectorException("Community ID is not found, please check if token is correct");
-		}
-
-		firstAdminId = getFirstAdminId();
-		if(firstAdminId == null){
-			throw new ConnectorException("Can not find any admin in community");
 		}
 	}
 
@@ -398,7 +386,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 							jsonObject = normalizeJSONFullRecon(jsonObject);
 						} else {
 							LOGGER.info("execute normalizeJSON on jsonObject");
-							jsonObject = normalizeJSON(jsonObject);
+							jsonObject = normalizeJSONFromFB(jsonObject);
 						}
 						LOGGER.info("Json object after normalization: {0}", jsonObject.toString(1));
 
@@ -434,7 +422,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 											if (minResourceJson.has(USERNAME)) {
 
-												minResourceJson = populateUserJsonWithGroup(normalizeJSON(minResourceJson));
+												minResourceJson = populateUserJsonWithGroup(normalizeJSONFromFB(minResourceJson));
 
 												ConnectorObject connectorObject = buildConnectorObject(minResourceJson,
 														resourceEndPoint);
@@ -443,10 +431,6 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 											}
 										} else {
 											LOGGER.error("No uid present in fetched object: {0}", minResourceJson);
-
-											throw new ConnectorException(
-													"No uid present in fetchet object while processing queuery result");
-
 										}
 									}
 								} else {
@@ -461,8 +445,8 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 						} catch (Exception e) {
 							LOGGER.error(
-									"Builder error. Error while building connId object. The exception message: {0}",
-									e.getLocalizedMessage());
+									"Builder error. Error while building connId object. The exception message: {0}, Line: {1}, Response: {2}",
+									e.getLocalizedMessage(), e.getStackTrace()[0].getLineNumber(), responseString);
 							LOGGER.info("Builder error. Error while building connId object. The excetion message: {0}",
 									e);
 							throw new ConnectorException("Builder error. Error while building connId object.", e);
@@ -776,7 +760,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 			String gid = String.valueOf(group.getLong(ID));
 			if(getGroupMembersCount(gid) <= 1){
-				addUserToGroup(firstAdminId, gid);
+				addUserToGroup(getFirstAdminId(), gid);
 			}
 		}
 	}
@@ -1963,7 +1947,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 
 	private JSONObject getGroupsPage(String page){
-		String uri = GRAPH_API_BASE_URI + SLASH + communityId + SLASH + "groups";
+		String uri = GRAPH_API_BASE_URI + SLASH + getCommunityId() + SLASH + "groups";
 
 		if(!page.equals("")){
 			uri = uri + "?after=" + page;
@@ -2070,7 +2054,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 		int groupMembers = getGroupMembersCount(gid);
 		if(groupMembers <= 1){
 			LOGGER.info("User {0} in Group {1} is last member, adding admin to the group", uid, gid, groupMembers);
-			addUserToGroup(firstAdminId, gid);
+			addUserToGroup(getFirstAdminId(), gid);
 		}
 
 		String uri = GRAPH_API_BASE_URI + SLASH + gid + SLASH + "members" + SLASH + uid;
@@ -2101,7 +2085,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 	}
 
 	private String getFirstAdminId() {
-		String uri = GRAPH_API_BASE_URI + SLASH + communityId + SLASH + "?fields=admins";
+		String uri = GRAPH_API_BASE_URI + SLASH + getCommunityId() + SLASH + "?fields=admins";
 		LOGGER.info("getFirstAdminId url: {0}", uri);
 		HttpGet httpGet = buildHttpGet(uri);
 		String responseString = executeRequest(httpGet);
@@ -2425,6 +2409,31 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
         }
         return jsonObject;
     }
+
+	private JSONObject normalizeJSONFromFB(JSONObject jsonObject) {
+		LOGGER.info("normalizeJSON start");
+		if (jsonObject.has(ENTERPRISEVALUE)) {
+			Object jsonVal = jsonObject.get(ENTERPRISEVALUE);
+			JSONObject entrps = new JSONObject(jsonVal.toString());
+			LOGGER.info("entrps={0}",entrps);
+			if (entrps.has(MANAGER)) {
+				JSONObject managerVal = new JSONObject(entrps.get(MANAGER).toString());
+				Object managerIdVal = managerVal.get(MANAGERID);
+				entrps.remove(MANAGER);
+				LOGGER.info("managerIdVal={0}",managerIdVal);
+				entrps.put(MANAGER, managerIdVal);
+			}
+			jsonObject.remove(ENTERPRISEVALUE);
+			jsonObject.put(ENTERPRISE, entrps);
+		}
+
+		if (jsonObject.has(STARTTERMDATESVALUE)) {
+			Object jsonVal = jsonObject.get(STARTTERMDATESVALUE);
+			jsonObject.remove(STARTTERMDATESVALUE);
+			jsonObject.put(STARTTERMDATES, jsonVal);
+		}
+		return jsonObject;
+	}
     
     /** Call Normalize method for RESOURCES JSONArray object
      * 
@@ -2437,7 +2446,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
                 JSONArray resources = jsonObject.getJSONArray(RESOURCES);                                
                 for(int i=0; i < resources.length(); i++){
                     JSONObject resource = new JSONObject(resources.get(i).toString());
-                    resource=normalizeJSON(resource);
+                    resource=normalizeJSONFromFB(resource);
                     outpuResourcesArray.put(resource);
                     }
                 jsonObject.remove(RESOURCES);
