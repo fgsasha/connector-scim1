@@ -60,6 +60,9 @@ public class GroupDataBuilder {
 
 		builder.addAttributeInfo(AttributeInfoBuilder.define("members.default.value").build());
 		builder.addAttributeInfo(AttributeInfoBuilder.define("members.default.display").build());
+
+		builder.addAttributeInfo(AttributeInfoBuilder.define("privacy").build());
+
 		ObjectClassInfo groupSchemaInfo = builder.build();
 
 		LOGGER.info("The constructed group schema representation: {0}", groupSchemaInfo);
