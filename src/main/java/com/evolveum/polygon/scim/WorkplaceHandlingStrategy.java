@@ -16,20 +16,12 @@
 
 package com.evolveum.polygon.scim;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.NoRouteToHostException;
 import java.net.SocketTimeoutException;
 import java.util.*;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -38,7 +30,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.entity.EntityTemplate;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.util.EntityUtils;
@@ -61,25 +52,18 @@ import org.identityconnectors.framework.common.objects.ObjectClassInfoBuilder;
 import org.identityconnectors.framework.common.objects.OperationalAttributeInfos;
 import org.identityconnectors.framework.common.objects.OperationalAttributes;
 import org.identityconnectors.framework.common.objects.ResultsHandler;
-import org.identityconnectors.framework.common.objects.SearchResult;
 import org.identityconnectors.framework.common.objects.Uid;
 import org.identityconnectors.framework.common.objects.filter.AttributeFilter;
 import org.identityconnectors.framework.common.objects.filter.ContainsAllValuesFilter;
 import org.identityconnectors.framework.common.objects.filter.EqualsFilter;
 import org.identityconnectors.framework.common.objects.filter.Filter;
-import org.identityconnectors.framework.spi.SearchResultsHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.evolveum.polygon.scim.ErrorHandler;
-import com.evolveum.polygon.scim.common.HttpPatch;
-
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.http.entity.StringEntity;
 import org.identityconnectors.framework.common.objects.AttributeBuilder;
 
 
@@ -95,6 +79,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 	private static HttpClient httpClient;
 	private static Header authHeader;
+	private int failedAttempts;
 
 	private static final Log LOGGER = Log.getLog(WorkplaceHandlingStrategy.class);
 	private static final String CANONICALVALUES = "canonicalValues";
@@ -379,6 +364,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 				if (!responseString.isEmpty()) {
 					try {
 						JSONObject jsonObject = new JSONObject(responseString);
+						failedAttempts = 0;
 
 						LOGGER.info("Json object returned from service provider: {0}", jsonObject.toString(1));
 						if (jsonObject.has(RESOURCES)) {
@@ -394,7 +380,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 							if (valueIsUid) {
 
-								if(jsonObject.has(USERNAME)){
+								if (jsonObject.has(USERNAME)) {
 									jsonObject = populateUserJsonWithGroup(jsonObject);
 								}
 								ConnectorObject connectorObject = buildConnectorObject(jsonObject, resourceEndPoint);
@@ -410,7 +396,7 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 								} else if (jsonObject.has(RESOURCES)) {
 									int amountOfResources = jsonObject.getJSONArray(RESOURCES).length();
 
-									if(resourceEndPoint.equals("Users") && getNextStartIndex(jsonObject) != 0){
+									if (resourceEndPoint.equals("Users") && getNextStartIndex(jsonObject) != 0) {
 										jsonObject = getUsersFormOtherPages(jsonObject, uri, amountOfResources);
 										amountOfResources = jsonObject.getJSONArray(RESOURCES).length();
 									}
@@ -470,6 +456,21 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 
 					LOGGER.warn("Service provider response is empty, responce returned on query: {0}", q);
 				}
+			} else if(responseString.contains("Sorry, something went wrong.") && failedAttempts < 6){
+				LOGGER.warn("Facebook error, will retry after some sleep");
+				failedAttempts++;
+				try
+				{
+					Thread.sleep(failedAttempts * 1000);
+				}
+				catch(InterruptedException ex)
+				{
+					Thread.currentThread().interrupt();
+				}
+
+				// retry
+				query(query, queryUriSnippet, resourceEndPoint, resultHandler, conf);
+
 			} else if (statusCode == 401) {
 
 				handleInvalidStatus("while querying for resources. ", responseString, "retrieving an object",
@@ -2167,13 +2168,22 @@ public class WorkplaceHandlingStrategy implements HandlingStrategy {
 			int statusCode = response.getStatusLine().getStatusCode();
 			LOGGER.info("Schema query status code: {0}", statusCode);
 			if (statusCode >= 200 && statusCode < 300) {
-
 				if (!responseString.isEmpty()) {
+					failedAttempts = 0;
 					return responseString;
 				} else {
 					LOGGER.error("Response is empty");
 					return null;
 				}
+			} else if(responseString.contains("Sorry, something went wrong.") && failedAttempts < 6) {
+				LOGGER.warn("Facebook error, will retry after some sleep");
+				failedAttempts++;
+				try {
+					Thread.sleep(failedAttempts * 1000);
+				} catch (InterruptedException ex) {
+					Thread.currentThread().interrupt();
+				}
+				return executeRequest(request);
 			}
 			LOGGER.error("HTTP Failed {0} - {1}", statusCode, responseString);
 			return null;
